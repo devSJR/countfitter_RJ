@@ -1,5 +1,5 @@
 % !TeX root = RJwrapper.tex
-\title{Bayesian Analysis of Overdispersed Count Data - emph{countfitter}}
+\title{\emph{countfitteR}: a web server for the analysis of count data}
 \author{by Jaros\l{}aw Chilmoniuk, Madeleine Ruhe, Stefan R\"{o}diger and Micha\l{} Burdukiewicz}
 
 \maketitle
@@ -8,6 +8,13 @@
 An abstract of less than 150 words.
 }
 
+\section{ToDo}
+
+\begin{itemize}
+ \item Hurdle Model (Hu,M.-C. et al. (2011) Zero-Inflated and Hurdle Models of Count Data with Extra Zeros: Examples from an HIV-Risk Reduction Intervention Trial. The American Journal of Drug and Alcohol Abuse, 37, 367–375.)
+\end{itemize}
+
+
 \section{Section title in sentence case}
 
 We extend the statistical method for other absolute countable 
@@ -15,7 +22,7 @@ biomolecule complexes such as $\gamma H2AX$ foci, which is an important
 biodositometer during radiation treatment. Our system facilitates the digital 
 enumeration of DNA double-strand breaks (DSB) via the phosphorylated histone 
 variant H2AX ($\gamma H2AX$). $\gamma H2AX$ is an important biomarker of physiological 
-and pathological cellular processes \citep{reddig_2018, rodiger_quantification_2018}. In addition, associated biomarkers such as 
+and pathological cellular processes \cite{reddig_dna_2018,rodiger_quantification_2018}. In addition, associated biomarkers such as 
 the p53-binding protein 1 (53BP1) may also be detected during the screening. The 
 foci quantification is a fast and sensitive approach for detection of one of the 
 critical types of DNA damage introduced by radiation, cellular process or toxic 
@@ -69,13 +76,13 @@ the Poisson distribution. It directly affects the conclusion drawn from a data
 analysis, because bigger change of the mean number of foci is required, to 
 support the significance of the impact of the treatment. 
 
-Since overdispersion has serve impact on a data analysis, we created emph{countfitter} for 
+Since overdispersion has serve impact on a data analysis, we created \emph{countfitteR} for 
 determination of the count data distribution. Our software fits count data to 
 four distributions, that describe counts: Poisson, NB, ZIP and ZINB. Although 
 statistical tests designed for detecting overdispersion exist, they work 
 properly only in a specific range of values. Furthermore, these tests only 
 indicate that data is overdispersed, but do not point the suitable probability 
-distribution. Therefore, emph{countfitter} selects the appropriate model using the Bayesian 
+distribution. Therefore, \emph{countfitteR} selects the appropriate model using the Bayesian 
 Information Criterion (BIC). The analysis is coupled with an estimation of 
 parameters in the distribution of choice and their confidence intervals.  
 
@@ -88,22 +95,36 @@ is appropriate among others for technical replicates.
 Our application is available as a web server that may be used in an 
 analysis of $\gamma H2AX$ and 53BP1 count data. It is accompanied by 
 an in-depth manual depicting the implemented framework and a rationale behind 
-it. The guide covers both theoretical fundamentals and usage of emph{countfitter}, from a 
+it. The guide covers both theoretical fundamentals and usage of \emph{countfitteR}, from a 
 data import to a report generation. A publication is currently in preparation.
 
-emph{countfitter} provides clinical scientists with a simple interface for the analysis of 
+\emph{countfitteR} provides clinical scientists with a simple interface for the analysis of 
 count data regardless of their biostatistical knowledge about the nature of the 
 distribution. In the present study we used count data from an image based study 
 of $\gamma H2AX$ foci. Analysis of such foci data is a common task both in life 
-sciences and in diagnostics applications. Though emph{countfitter} was initially developed 
+sciences and in diagnostics applications. Though \emph{countfitteR} was initially developed 
 for modeling count data from the AKLIDES system, it may be used for foci 
 data from other systems. Since our software is open source and accessible also 
 from the command-line level, it is suitable for integration into other analysis 
 pipelines dealing with count data. Therefore, we anticipate that our finding 
 will have a broader use. The web server is accessible under: 
-\url{www.smorfland.uni.wroc.pl/emph{countfitter}}
+\url{update me}
+
+\section{Functions from the command line}
+
+\emph{countfitteR} has the following main functions that can
+be used from the command line:
+
+\begin{itemize}
+    \item \textit{compare\_fit} to compare something,
+    \item \textit{fit\_counts} to count something and
+    \item \textit{plot\_fitcmp} to plot something.
+\end{itemize}
 
 
+\section{Data sets}
+
+The data were prepared as described in \citep{rodiger_quantification_2018}.
 
 \section{Another section}
 
@@ -129,7 +150,7 @@ There will likely be several sections, perhaps including code snippets, such as:
 
 This file is only a basic article template. For full details of \emph{The R Journal} style and information on how to prepare your article for submission, see the \href{https://journal.r-project.org/share/author-guide.pdf}{Instructions for Authors}.
 
-\bibliography{RJreferences}
+\bibliography{Chilmoniuk}
 
 \address{Jaros\l{}aw Chilmoniuk\\
   Affiliation\\
@@ -139,22 +160,22 @@ This file is only a basic article template. For full details of \emph{The R Jour
   \email{author1@work}}
 
 \address{Madeleine Ruhe\\
-  Affiliation\\
-  Address\\
-  Country\\
+  Brandenburg University of Technology Cottbus - Senftenberg\\
+  Universit\"atsplatz 1, Senftenberg\\
+  Germany\\
   (ORCiD if desired)\\
-  \email{author2@work}}
+  \email{Madeleine.Ruhe1@b-tu.de}}
 
 \address{Stefan R\"{o}diger\\
-  Affiliation\\
-  Address\\
-  Country\\
-  (ORCiD if desired)\\
-  \email{author3@work}}
+  Brandenburg University of Technology Cottbus - Senftenberg\\
+  Universit\"atsplatz 1, Senftenberg\\
+  Germany\\
+  (ORCiD: 0000-0002-1441-6512)\\
+  \email{stefan.roediger@b-tu.de}}
 
 \address{Micha\l{} Burdukiewicz\\
   Affiliation\\
   Address\\
   Country\\
-  (ORCiD if desired)\\
-  \email{author3@work}}
+  (ORCiD: 0000-0001-8926-582X)\\
+  \email{michalburdukiewicz@gmail.com}}
