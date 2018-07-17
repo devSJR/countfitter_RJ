@@ -113,7 +113,6 @@ ZINB & $\textrm{var}(X) = (1 - r) \lambda \left( 1 + r\lambda  + \frac{1}{\theta
 \section{2. Package - what's inside.}
 
 
-
 \section{Describe briefly main functions}
 
 \emph{countfitteR} provides clinical scientists with a simple interface for the analysis of count data regardless of their biostatistical knowledge about the nature of the distribution. The framework covers two most common situations. In the first approach, each count is separately fitted to all above mentioned distributions. This is preferable for situations, where counts come from various sources. The second approach relies on fitting globally all counts to a distribution. Such a model is appropriate among others for technical replicates.
@@ -159,15 +158,13 @@ Our application is available as a web server that may be used in an analysis of 
 %   \label{figure:cj_cmp.png}
 % \end{figure}
 
-\section{Functions from the command line}
-
-\emph{countfitteR} can also be used from the command line. It has following main functions:
+\section{Functions that can be used from the command line}
 
 \begin{itemize}
-    \item \textit{fit\_counts} is used to create a list of parameters characterizing chosen distribution model.
-    \item \textit{compare\_fit} compares empirical distribution of counts with the distribution defined by the model fitted to counts.
-    \item \textit{plot\_fitcmp} creates plot from compare\_fit results. 
-    \item \textit{summary\_fitlist} creates data frame from a list created by fit\_counts function with additional attributes.
+    \item \textit{fit\_counts} - fits counts to distribution models and creates a list of parameters characterizing chosen distribution model.
+    \item \textit{compare\_fit} - compares empirical distribution of counts with the distribution defined by the model fitted to counts. Creates data table with distribution values for each unique count.
+    \item \textit{plot\_fitcmp} - creates plot from compare\_fit results. The bar charts represent theoretical counts depending on the chosen distribution. Red dots describe the real number of counts.
+    \item \textit{summary\_fitlist} - creates data frame from a list created by fit\_counts function with additional attributes. Data frame with summarised results of all distribution models.
 \end{itemize}
 
 % fitCounts \\
@@ -213,10 +210,12 @@ CountsEPPM
 
 \section{some showcases}
 
+{\bfseries
 \begin{example}
 df <- data.frame(poisson = rpois(25, 0.3), binomial = rbinom(25, 1, 0.8))
 fc <- fit_counts(df, model = "pois") 
 \end{example}
+}
 
 \begin{example}
 $poissonpois
@@ -251,10 +250,12 @@ $binomialpois$model
 [1] "pois"
 \end{example}
 
+{\bfseries
 \begin{example}
 df <- data.frame(poisson = rpois(25, 0.3), binomial = rbinom(25, 1, 0.8))
 cmp <- compare_fit(df, fitlist = fit_counts(df, model = "all"))
 \end{example}
+}
 
 \begin{example}
       count   model x  n     value
@@ -269,12 +270,13 @@ cmp <- compare_fit(df, fitlist = fit_counts(df, model = "all"))
 16 binomial    ZINB 1 18        NA
 \end{example}
 
-<<<<<<< HEAD
+{\bfseries
 \begin{example}
 df <- data.frame(poisson = rpois(25, 0.3), binomial = rbinom(25, 1, 0.8))
 cmp <- compare_fit(df, fitlist = fit_counts(df, model = "all"))
 plot_fitcmp(cmp)
 \end{example}
+}
 
 \begin{figure}[htbp]
   \centering
@@ -282,11 +284,13 @@ plot_fitcmp(cmp)
   \label{figure:Rplot.png}
 \end{figure}
 
+{\bfseries
 \begin{example}
 df <- data.frame(poisson = rpois(25, 0.3), binomial = rbinom(25, 1, 0.8))
 fc <- fit_counts(df, model = "all") 
 summary_fitlist(fc) 
 \end{example}
+}
 
 \begin{example}
                  count lambda     lower     upper      BIC     theta  r   model
@@ -301,21 +305,6 @@ binomial_zinb binomial     NA        NA        NA       NA        NA NA    ZINB
 \end{example}
 
 
-
-\section{Another section}
-
-This section may contain a figure such as Figure~\ref{figure:rlogo}.
-
-\section{Another section}
-
-There will likely be several sections, perhaps including code snippets, such as:
-
-\begin{example}
-  x <- 1:10
-  result <- myFunction(x)
-\end{example}
-
-
 \section{Summary}
 
 This file is only a basic article template. For full details of \emph{The R Journal} style and information on how to prepare your article for submission, see the \href{https://journal.r-project.org/share/author-guide.pdf}{Instructions for Authors}.
@@ -326,7 +315,7 @@ This file is only a basic article template. For full details of \emph{The R Jour
   Affiliation\\
   Address\\
   Country\\
-  ORCiD if desired\\
+  ORCiD: 0000-0001-5467-018X\
   \email{author1@work}}
 
 \address{Madeleine Ruhe\\
