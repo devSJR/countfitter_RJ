@@ -1,4 +1,5 @@
 % !TeX root = RJwrapper.tex
+\def\arraystretch{2.5}
 \title{\emph{countfitteR}: a web server for the analysis of count data}
 \author{by Jaros\l{}aw Chilmoniuk, Madeleine Ruhe, Stefan R\"{o}diger and Micha\l{} Burdukiewicz}
 
@@ -16,10 +17,11 @@ In countfitteR we implemented 4 models of distribution. Poisson, which is typica
 \end{itemize}
 
 
-\section{1. Introduction.}
-\section{What is count data? | prevelence of count data}
-Count data is a type of data in which the number of occurrences in a fixed period of time can take only the non-negative integer values.
-This type of data is often found to .... and DNA double-strand breaks (DSB).
+\section{Introduction.}
+\subsection{What is count data? | prevelence of count data}
+Count data is a type of data in which the number of occurrences in a fixed period of time can take only the non-negative integer values. Typical examples of count data are found in transportation safety, number of office visits, hospital admissions, adverse drug events (ADEs), laboratory tests, rates of cardiac arrest or infections, and DNA double-strand breaks.
+
+% This type of data is often found in  [https://www.sciencedirect.com/science/article/pii/S0191261513001197], daily car crash [https://www.ncbi.nlm.nih.gov/pubmed/18460387], different clinical trials (eg. in the context of chronic obstructive pulmonary disease [https://www.ncbi.nlm.nih.gov/pubmed/17230434] or infectious disease [no link]) and DNA double-strand breaks (DSB) [add a link].
 
 We developed a system that facilitates the digital  enumeration of DSBs via the phosphorylated histone  variant H2AX ($\gamma H2AX$), which is an important  biodositometer during radiation treatment. $\gamma H2AX$ is an important biomarker of physiological and pathological cellular processes \cite{reddig_dna_2018,rodiger_quantification_2018}. In addition, associated biomarkers such as the p53-binding protein 1 (53BP1) may also be detected during the screening. The foci quantification is a fast and sensitive approach for detection of one of the critical types of DNA damage introduced by radiation, cellular process or toxic agent with applications in research and clinical environment (e.g., individual radiosensitivity). Although these biomarkers play a crucial role in diagnostics, their levels vary not only between patients but also between replicates.
 
@@ -44,40 +46,68 @@ Since overdispersion has serve impact on a data analysis, we created \emph{count
 
 
 %####################################### New section?, need to format
+\section{Models}
 
 Parameters:
-
-* $\lambda$ - Poisson parameter (average number of foci per cell).  
-* $r$ - zero inflation (fraction of cells treated by system as having no foci regardless of their real state).  
-* $\theta$ - dispersion parameter.
+\begin{itemize}
+\item $\lambda$ - Poisson parameter (average number of foci per cell). 
+\item $r$ - zero inflation (fraction of cells treated by system as having no foci regardless of their real state).
+\item $\theta$ - dispersion parameter.
+\end{itemize}
   
 Usually the NB distribution is parameterized using $\mu$ and $\theta$, but to make comparison clearer, we use $\lambda$ instead of $\mu$. In this parameterization, NB and ZINB are treated as the mixture of Poisson and Gamma ($\Gamma$) distributions.  
 
-Distribution <br> name  | pmf 
--------------------|-------------
-Poisson            |$$P\{X = k\} = \frac{\lambda^k \exp^{-\lambda}}{k!} $$
-Zero-inflated Poisson                |$$P\{X = k\} = \begin{cases} r + ( 1- r) \exp^{-\lambda},\text{if } k = 0\\ r \frac{\lambda^k \exp^{-\lambda}}{k!},\text{if } k = 1, 2, \ldots \end{cases} $$
-Negative Binomial                 |$$P\{X = k\} = \frac{\Gamma (\theta + k)}{\Gamma(\theta) k!}  \left(\left( \frac{\theta}{\theta + \lambda} \right)^\theta \left( \frac{\lambda}{\theta + \lambda} \right) \right)^k$$
-Zero-inflated Negative Binomial               |$$P\{X = k\} = \begin{cases}r + (1 - r) \left( \frac{\theta}{\theta + \lambda} \right)^\theta,\text{if } k = 0\\(1 - r) \frac{\Gamma (\theta + k)}{\Gamma(\theta) k!}  \left(\left( \frac{\theta}{\theta + \lambda} \right)^\theta \left( \frac{\lambda}{\theta + \lambda} \right) \right)^k,\text{if } k = 1, 2, \ldots\end{cases}$$
+\begin{center}
+\begin{tabular}{ |c|c| } 
+\hline
+\bfseries Distribution name & \bfseries pmf \\
+\hline
+Poisson & $P\{X = k\} = \frac{\lambda^k \exp^{-\lambda}}{k!} $ \\
+\hline
+Zero-inflated Poisson & $P\{X = k\} = \begin{cases} r + ( 1- r) \exp^{-\lambda},\text{if } k = 0\\ r \frac{\lambda^k \exp^{-\lambda}}{k!},\text{if } k = 1, 2, \ldots \end{cases} $ \\
+\hline
+Negative Binomial & $P\{X = k\} = \frac{\Gamma (\theta + k)}{\Gamma(\theta) k!}  \left(\left( \frac{\theta}{\theta + \lambda} \right)^\theta \left( \frac{\lambda}{\theta + \lambda} \right) \right)^k$ \\
+\hline
+Zero-inflated Negative Binomial & $P\{X = k\} = \begin{cases}r + (1 - r) \left( \frac{\theta}{\theta + \lambda} \right)^\theta,\text{if } k = 0\\(1 - r) \frac{\Gamma (\theta + k)}{\Gamma(\theta) k!}  \left(\left( \frac{\theta}{\theta + \lambda} \right)^\theta \left( \frac{\lambda}{\theta + \lambda} \right) \right)^k,\text{if } k = 1, 2, \ldots\end{cases}$ \\
+\hline
+\end{tabular}
+\end{center}
 
 Poisson and Negative Binomial distributions have the same expected value. In case of ZIP and ZINB, the expected value is smaller than the real average number of foci per cell.
 
-Distribution <br> name  | Expected value
--------------------|-------------
-Poisson            |$$E(X) = \lambda $$
-ZIP                |$$E(X) = (1 - r) \lambda $$
-NB                 |$$E(X) = \lambda $$
-ZINB               |$$E(X) = (1 - r)  \lambda $$ 
+\begin{center}
+\begin{tabular}{ |c|c| } 
+\hline
+\bfseries Distribution name & \bfseries Expected value \\
+\hline
+Poisson & $E(X) = \lambda $ \\
+\hline
+ZIP & $E(X) = (1 - r) \lambda $ \\
+\hline
+NB & $E(X) = \lambda $ \\
+\hline
+ZINB & $E(X) = (1 - r)  \lambda $  \\
+\hline
+\end{tabular}
+\end{center}
 
 Depending on the value of $r$ the variance of ZIP and ZINB may be smaller or bigger than the variance of Poisson distribution. In case of the NB distribution, the variance is always bigger than for the Poisson distribution, although the difference becomes negligible, when the $\theta$ is much bigger than $\lambda^2$.
 
-Distribution <br> name  | Variance
--------------------|-------------
-Poisson            |$$\textrm{var}(X) = \lambda $$
-ZIP                |$$\textrm{var}(X) = \lambda (1 - r)(1 + \lambda r)$$
-NB                 |$$\textrm{var}(X) = \lambda + \frac{\lambda^2}{\theta} $$
-ZINB               |$$\textrm{var}(X) = (1 - r) \lambda \left( 1 + r\lambda  + \frac{1}{\theta} \right)$$
-
+\begin{center}
+\begin{tabular}{ |c|c| } 
+\hline
+\bfseries Distribution name & \bfseries Variance \\
+\hline
+Poisson & $\textrm{var}(X) = \lambda $ \\
+\hline
+ZIP & $\textrm{var}(X) = \lambda (1 - r)(1 + \lambda r)$ \\
+\hline
+NB & $\textrm{var}(X) = \lambda + \frac{\lambda^2}{\theta} $ \\
+\hline
+ZINB & $\textrm{var}(X) = (1 - r) \lambda \left( 1 + r\lambda  + \frac{1}{\theta} \right)$ \\
+\hline
+\end{tabular}
+\end{center}
 
 
 \section{2. Package - what's inside.}
@@ -91,13 +121,80 @@ Our software is open source and accessible also from the command-line level, it 
 The web server is accessible under: 
 \url{update me}
 
-\section{show the foci example here}
+\section{Data sets}
+In the present study we used count data from an image based study of $\gamma H2AX$ foci. Analysis of such foci data is a common task both in life sciences and in diagnostics applications. Though \emph{countfitteR} was initially developed for modeling count data from the AKLIDES system, it may be used for foci data from other systems.
+The data were prepared as described in \citep{rodiger_quantification_2018}.
 
-In the present study we used count data from an image based study of $\gamma H2AX$ foci. Analysis of such foci data is a common task both in life sciences and in diagnostics applications. Though \emph{countfitteR} was initially developed for modeling count data from the AKLIDES system, it may be used for foci data from other systems. 
+ADD EXAMPLE DATA SET
 
 \section{Show he shiny gui}
 
 Our application is available as a web server that may be used in an analysis of any kind count data, not only $\gamma H2AX$ and 53BP1. It is accompanied by an in-depth manual depicting the implemented framework and a rationale behind it. The guide covers both theoretical fundamentals and usage of \emph{countfitteR}, from a data import to a report generation.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.99\columnwidth]{fig_gui}
+  \caption{\emph{countfitteR} running in the \emph{RKWard} GUI/IDE \citep{rodiger_rkward:_2012}.}
+  \label{figure:fig_gui.png}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.99\columnwidth]{cj_rep}
+  \caption{Fragment of report created by \emph{countfitteR}.}
+  \label{figure:cj_rep.png}
+\end{figure}
+
+% \begin{figure}[htbp]
+%   \centering
+%   \includegraphics[width=0.99\columnwidth]{cj_main}
+%   \caption{EXAMPLE \emph{countfitteR} shiny app running in the \emph{R Studio} GUI/IDE \citep{}.}
+%   \label{figure:cj_m.png}
+% \end{figure}
+% 
+% \begin{figure}[htbp]
+%   \centering
+%   \includegraphics[width=0.99\columnwidth]{cj_cmp}
+%   \caption{EXAMPLE \emph{countfitteR} shiny app running in the \emph{R Studio} GUI/IDE \citep{}.}
+%   \label{figure:cj_cmp.png}
+% \end{figure}
+
+\section{Functions from the command line}
+
+\emph{countfitteR} can also be used from the command line. It has following main functions:
+
+\begin{itemize}
+    \item \textit{fit\_counts} is used to create a list of parameters characterizing chosen distribution model.
+    \item \textit{compare\_fit} compares empirical distribution of counts with the distribution defined by the model fitted to counts.
+    \item \textit{plot\_fitcmp} creates plot from compare\_fit results. 
+    \item \textit{summary\_fitlist} creates data frame from a list created by fit\_counts function with additional attributes.
+\end{itemize}
+
+% fitCounts \\
+% Estimates are presented in the table below along with the BIC values of their models.
+% Function is used to estimate the best distribution models for given data
+% Fit count is used to fit counts to different distribution models.
+% function is used to create a list of parameters characterizing chosen model. Those attributes are: 
+% \begin{itemize}
+%     \item lambda - Poisson parameter (average number of foci per cell). the estimated value of mean
+%     \item confint - lambda confidence intervals
+%     \item BIC - Bayesian Criterion Information, important criterion for model selection
+%     \item model - information of applied model
+% \end{itemize}
+% 
+% summaryFitlist \\
+% summary fitlist creates data frame from a list created by fit counts function with additional attributes as:
+% \begin{itemize}
+%     \item theta - dispersion parameter.
+%     \item r - zero inflation (fraction of cells treated by system as having no foci regardless of their real state).
+% \end{itemize}
+% Estimated coefficients of models (lambda for all distributions, theta for NB and ZINB, r for ZIP and ZINB).
+% 
+% compareFit and plotFitcmp \\
+% compare fit function compares empirical distribution of counts with the distribution defined by the model fitted to counts. 
+% plot fitcmp creates plot from compare fit results. 
+% Points indicate the real number of counts, while bars the number of counts estimated by a distribution.
+
 
 \section{3. Results and conclusion.}
 
@@ -116,59 +213,97 @@ CountsEPPM
 
 \section{some showcases}
 
+\begin{example}
+df <- data.frame(poisson = rpois(25, 0.3), binomial = rbinom(25, 1, 0.8))
+fc <- fit_counts(df, model = "pois") 
+\end{example}
+
+\begin{example}
+$poissonpois
+$poissonpois$coefficients
+lambda 
+  0.28 
+
+$poissonpois$confint
+          lower     upper
+lambda 0.120304 0.5414518
+
+$poissonpois$BIC
+[1] 35.0404
+
+$poissonpois$model
+[1] "pois"
 
 
-\section{Functions from the command line}
+$binomialpois
+$binomialpois$coefficients
+lambda 
+  0.72 
 
-\emph{countfitteR} has the following main functions that can
-be used from the command line:
+$binomialpois$confint
+           lower    upper
+lambda 0.4364839 1.105632
 
-\begin{itemize}
-    \item \textit{compare\_fit} to compare something,
-    \item \textit{fit\_counts} to count something and
-    \item \textit{plot\_fitcmp} to plot something.
-\end{itemize}
+$binomialpois$BIC
+[1] 51.04502
 
-fitCounts \\
-Estimates are presented in the table below along with the BIC values of their models.
-Function is used to estimate the best distribution models for given data
-Fit count is used to fit counts to different distribution models.
-function is used to create a list of parameters characterizing chosen model. Those attributes are: 
-\begin{itemize}
-    \item lambda - Poisson parameter (average number of foci per cell). the estimated value of mean
-    \item confint - lambda confidence intervals
-    \item BIC - Bayesian Criterion Information, important criterion for model selection
-    \item model - information of applied model
-\end{itemize}
+$binomialpois$model
+[1] "pois"
+\end{example}
 
-summaryFitlist \\
-summary fitlist creates data frame from a list created by fit counts function with additional attributes as:
-\begin{itemize}
-    \item theta - dispersion parameter.
-    \item r - zero inflation (fraction of cells treated by system as having no foci regardless of their real state).
-\end{itemize}
-Estimated coefficients of models (lambda for all distributions, theta for NB and ZINB, r for ZIP and ZINB).
+\begin{example}
+df <- data.frame(poisson = rpois(25, 0.3), binomial = rbinom(25, 1, 0.8))
+cmp <- compare_fit(df, fitlist = fit_counts(df, model = "all"))
+\end{example}
 
-compareFit and plotFitcmp \\
-compare fit function compares empirical distribution of counts with the distribution defined by the model fitted to counts. 
-plot fitcmp creates plot from compare fit results. 
-Points indicate the real number of counts, while bars the number of counts estimated by a distribution.
+\begin{example}
+      count   model x  n     value
+1   poisson Poisson 0 18 18.894594
+2   poisson Poisson 1  7  5.290486
+3   poisson     ZIP 0 18        NA
+4   poisson     ZIP 1  7        NA
+...
+13 binomial      NB 0  7 12.168873
+14 binomial      NB 1 18  8.761455
+15 binomial    ZINB 0  7        NA
+16 binomial    ZINB 1 18        NA
+\end{example}
+
+\begin{example}
+df <- data.frame(poisson = rpois(25, 0.3), binomial = rbinom(25, 1, 0.8))
+cmp <- compare_fit(df, fitlist = fit_counts(df, model = "all"))
+plot_fitcmp(cmp)
+\end{example}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.99\columnwidth]{Rplot}
+  \label{figure:Rplot.png}
+\end{figure}
+
+\begin{example}
+df <- data.frame(poisson = rpois(25, 0.3), binomial = rbinom(25, 1, 0.8))
+fc <- fit_counts(df, model = "all") 
+summary_fitlist(fc) 
+\end{example}
+
+\begin{example}
+                 count lambda     lower     upper      BIC     theta  r   model
+poisson_pois   poisson   0.28 0.1203040 0.5414518 35.04040        NA NA Poisson
+binomial_pois binomial   0.72 0.4364839 1.1056323 51.04502        NA NA Poisson
+poisson_zip    poisson     NA        NA        NA       NA        NA NA     ZIP
+binomial_zip  binomial     NA        NA        NA       NA        NA NA     ZIP
+poisson_nb     poisson   0.28 0.1203060 0.5414187 38.25952  7869.431 NA      NB
+binomial_nb   binomial   0.72 0.4364790 1.1056475 54.26417 47031.937 NA      NB
+poisson_zinb   poisson     NA        NA        NA       NA        NA NA    ZINB
+binomial_zinb binomial     NA        NA        NA       NA        NA NA    ZINB
+\end{example}
 
 
-\section{Data sets}
-
-The data were prepared as described in \citep{rodiger_quantification_2018}.
 
 \section{Another section}
 
 This section may contain a figure such as Figure~\ref{figure:rlogo}.
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.99\columnwidth]{fig_gui}
-  \caption{\emph{countfitteR} running in the \emph{RKWard} GUI/IDE \citep{rodiger_rkward:_2012}.}
-  \label{figure:fig_gui.png}
-\end{figure}
 
 \section{Another section}
 
