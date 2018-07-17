@@ -7,7 +7,7 @@
 
 \abstract{
 countfitteR is a package designed for the analysis of count data and for determination of the best possible distribution, since overdispersion has severe impact on data analysis. It comes with easy to use shiny gui and webserver, providing clinical scientists simple interface for the analysis of the data, without biostatistical knowledge about nature of distributions. \\
-In countfitteR we implemented 4 models of distribution. Poisson, which is typically used for count data, Negative Binomial (NB) dealing with extreme values, Zero-Inflated Poisson to depict Poisson-distributed data with excessive zeros and Zero-Inflated Negative Binomial to take care of increased variability of counts and zero-inflation. It can fit counts to mentioned distributions separately or globally, depending on the source of the data.
+In countfitteR we implemented four models of distribution. Poisson, which is typically used for count data, Negative Binomial (NB) dealing with extreme values, Zero-Inflated Poisson to depict Poisson-distributed data with excessive zeros and Zero-Inflated Negative Binomial to take care of increased variability of counts and zero-inflation. It can fit counts to mentioned distributions separately or globally, depending on the source of the data.
 }
 
 \section{ToDo}
@@ -269,6 +269,7 @@ cmp <- compare_fit(df, fitlist = fit_counts(df, model = "all"))
 16 binomial    ZINB 1 18        NA
 \end{example}
 
+<<<<<<< HEAD
 \begin{example}
 df <- data.frame(poisson = rpois(25, 0.3), binomial = rbinom(25, 1, 0.8))
 cmp <- compare_fit(df, fitlist = fit_counts(df, model = "all"))
@@ -325,26 +326,26 @@ This file is only a basic article template. For full details of \emph{The R Jour
   Affiliation\\
   Address\\
   Country\\
-  (ORCiD if desired)\\
+  ORCiD if desired\\
   \email{author1@work}}
 
 \address{Madeleine Ruhe\\
   Brandenburg University of Technology Cottbus - Senftenberg\\
   Universit\"atsplatz 1, Senftenberg\\
   Germany\\
-  (ORCiD if desired)\\
+  ORCiD if desired\\
   \email{Madeleine.Ruhe1@b-tu.de}}
 
 \address{Stefan R\"{o}diger\\
   Brandenburg University of Technology Cottbus - Senftenberg\\
   Universit\"atsplatz 1, Senftenberg\\
   Germany\\
-  (ORCiD: 0000-0002-1441-6512)\\
+  ORCiD: 0000-0002-1441-6512\\
   \email{stefan.roediger@b-tu.de}}
 
 \address{Micha\l{} Burdukiewicz\\
   Affiliation\\
   Address\\
   Country\\
-  (ORCiD: 0000-0001-8926-582X)\\
+  ORCiD: 0000-0001-8926-582X\\
   \email{michalburdukiewicz@gmail.com}}
