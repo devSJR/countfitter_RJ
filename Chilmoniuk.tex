@@ -6,7 +6,7 @@
 \maketitle
 
 \abstract{
-countfitteR is a package designed for the analysis of count data and for determination of the best possible distribution, since overdispersion has severe impact on data analysis. It comes with easy to use shiny gui and webserver, providing clinical scientists simple interface for the analysis of the data, without biostatistical knowledge about nature of distributions. \\
+countfitteR is a package designed for the analysis of count data and for determination of the optimal distribution model, since overdispersion has severe impact on data analysis. It comes with easy to use shiny gui and webserver, providing clinical scientists simple interface for the analysis of the data, without biostatistical knowledge about nature of distributions. \\
 In countfitteR we implemented four models of distribution. Poisson, which is typically used for count data, Negative Binomial (NB) dealing with extreme values, Zero-Inflated Poisson to depict Poisson-distributed data with excessive zeros and Zero-Inflated Negative Binomial to take care of increased variability of counts and zero-inflation. It can fit counts to mentioned distributions separately or globally, depending on the source of the data.
 }
 
@@ -162,53 +162,6 @@ Our application is available as a web server that may be used in an analysis of 
 
 \begin{itemize}
     \item \textit{fit\_counts} - fits counts to distribution models and creates a list of parameters characterizing chosen distribution model.
-    \item \textit{compare\_fit} - compares empirical distribution of counts with the distribution defined by the model fitted to counts. Creates data table with distribution values for each unique count.
-    \item \textit{plot\_fitcmp} - creates plot from compare\_fit results. The bar charts represent theoretical counts depending on the chosen distribution. Red dots describe the real number of counts.
-    \item \textit{summary\_fitlist} - creates data frame from a list created by fit\_counts function with additional attributes. Data frame with summarised results of all distribution models.
-\end{itemize}
-
-% fitCounts \\
-% Estimates are presented in the table below along with the BIC values of their models.
-% Function is used to estimate the best distribution models for given data
-% Fit count is used to fit counts to different distribution models.
-% function is used to create a list of parameters characterizing chosen model. Those attributes are: 
-% \begin{itemize}
-%     \item lambda - Poisson parameter (average number of foci per cell). the estimated value of mean
-%     \item confint - lambda confidence intervals
-%     \item BIC - Bayesian Criterion Information, important criterion for model selection
-%     \item model - information of applied model
-% \end{itemize}
-% 
-% summaryFitlist \\
-% summary fitlist creates data frame from a list created by fit counts function with additional attributes as:
-% \begin{itemize}
-%     \item theta - dispersion parameter.
-%     \item r - zero inflation (fraction of cells treated by system as having no foci regardless of their real state).
-% \end{itemize}
-% Estimated coefficients of models (lambda for all distributions, theta for NB and ZINB, r for ZIP and ZINB).
-% 
-% compareFit and plotFitcmp \\
-% compare fit function compares empirical distribution of counts with the distribution defined by the model fitted to counts. 
-% plot fitcmp creates plot from compare fit results. 
-% Points indicate the real number of counts, while bars the number of counts estimated by a distribution.
-
-
-\section{3. Results and conclusion.}
-
-
-
-\section{show other count-based packages}
-
-ShrinkBayes: a versatile R-package for analysis of count-based sequencing data in complex study designs.\\
-COUNT \\
-The Focinator \\ %no distribution?
-FoCo: a simple and robust quantification algorithm of nuclear foci \\ %no distribution
-AER \\
-pscl \\
-countreg: Count Data Regression \\
-CountsEPPM 
-
-\section{some showcases}
 
 {\bfseries
 \begin{example}
@@ -250,6 +203,10 @@ $binomialpois$model
 [1] "pois"
 \end{example}
 
+
+    \item \textit{compare\_fit} - compares empirical distribution of counts with the distribution defined by the model fitted to counts. Creates data table with distribution values for each unique count.
+
+
 {\bfseries
 \begin{example}
 df <- data.frame(poisson = rpois(25, 0.3), binomial = rbinom(25, 1, 0.8))
@@ -270,6 +227,8 @@ cmp <- compare_fit(df, fitlist = fit_counts(df, model = "all"))
 16 binomial    ZINB 1 18        NA
 \end{example}
 
+    \item \textit{plot\_fitcmp} - creates plot from compare\_fit results. The bar charts represent theoretical counts depending on the chosen distribution. Red dots describe the real number of counts.
+
 {\bfseries
 \begin{example}
 df <- data.frame(poisson = rpois(25, 0.3), binomial = rbinom(25, 1, 0.8))
@@ -283,6 +242,8 @@ plot_fitcmp(cmp)
   \includegraphics[width=0.99\columnwidth]{Rplot}
   \label{figure:Rplot.png}
 \end{figure}
+
+    \item \textit{summary\_fitlist} - creates data frame from a list created by fit\_counts function with additional attributes. Data frame with summarised results of all distribution models.
 
 {\bfseries
 \begin{example}
@@ -304,6 +265,52 @@ poisson_zinb   poisson     NA        NA        NA       NA        NA NA    ZINB
 binomial_zinb binomial     NA        NA        NA       NA        NA NA    ZINB
 \end{example}
 
+\end{itemize}
+
+% fitCounts \\
+% Estimates are presented in the table below along with the BIC values of their models.
+% Function is used to estimate the best distribution models for given data
+% Fit count is used to fit counts to different distribution models.
+% function is used to create a list of parameters characterizing chosen model. Those attributes are: 
+% \begin{itemize}
+%     \item lambda - Poisson parameter (average number of foci per cell). the estimated value of mean
+%     \item confint - lambda confidence intervals
+%     \item BIC - Bayesian Criterion Information, important criterion for model selection
+%     \item model - information of applied model
+% \end{itemize}
+% 
+% summaryFitlist \\
+% summary fitlist creates data frame from a list created by fit counts function with additional attributes as:
+% \begin{itemize}
+%     \item theta - dispersion parameter.
+%     \item r - zero inflation (fraction of cells treated by system as having no foci regardless of their real state).
+% \end{itemize}
+% Estimated coefficients of models (lambda for all distributions, theta for NB and ZINB, r for ZIP and ZINB).
+% 
+% compareFit and plotFitcmp \\
+% compare fit function compares empirical distribution of counts with the distribution defined by the model fitted to counts. 
+% plot fitcmp creates plot from compare fit results. 
+% Points indicate the real number of counts, while bars the number of counts estimated by a distribution.
+
+
+\section{3. Results and conclusion.}
+
+One of the most important features of countfitteR and its shiny GUI is deciding which distribution is optimal for the dataset. It is also easy to use by people that doesnt have any experiance with using command line and bioinformatics. 
+Currently you can find distribution analysis software like ShrinkBayes [], COUNT [], pscl [], countreg [] and CountsEPPM [] that analyses distributions of count datasets but none of them have user friendly interface. All of the listed packages must be run from the command line. Moreover, unlike countfitteR, they do not have functions that compare distributions and decides the most optimal one.
+
+% There are currently    some packages like ShrinkBayes [], COUNT [], pscl [], countreg [] and CountsEPPM [] that analyses distributions of count datasets but none of them have user friendly interface. Moreover 
+
+\section{show other count-based packages}
+
+% ShrinkBayes: a versatile R-package for analysis of count-based sequencing data in complex study designs.\\
+% COUNT \\
+% pscl \\
+% countreg: Count Data Regression \\
+% CountsEPPM 
+
+\section{some showcases}
+
+ADD SHINY GUI EXAMPLES
 
 \section{Summary}
 
@@ -316,8 +323,8 @@ The most important functions of the package can be run from command line, enabli
   Affiliation\\
   Address\\
   Country\\
-  ORCiD: 0000-0001-5467-018X\
-  \email{author1@work}}
+  ORCiD: 0000-0001-5467-018X\\
+  \email{jaroslaw.chilimoniuk@gmail.com}}
 
 \address{Madeleine Ruhe\\
   Brandenburg University of Technology Cottbus - Senftenberg\\
