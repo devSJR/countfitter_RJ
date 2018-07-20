@@ -190,14 +190,14 @@ $poissonpois$model
 $binomialpois
 $binomialpois$coefficients
 lambda 
-  0.72 
+  0.64 
 
 $binomialpois$confint
            lower    upper
-lambda 0.4364839 1.105632
+lambda 0.3753717 1.006709
 
 $binomialpois$BIC
-[1] 51.04502
+[1] 49.50006
 
 $binomialpois$model
 [1] "pois"
@@ -218,13 +218,13 @@ cmp <- compare_fit(df, fitlist = fit_counts(df, model = "all"))
       count   model x  n     value
 1   poisson Poisson 0 18 18.894594
 2   poisson Poisson 1  7  5.290486
-3   poisson     ZIP 0 18        NA
-4   poisson     ZIP 1  7        NA
+3   poisson     ZIP 0 18 18.894681
+4   poisson     ZIP 1  7  5.290388
 ...
-13 binomial      NB 0  7 12.168873
-14 binomial      NB 1 18  8.761455
-15 binomial    ZINB 0  7        NA
-16 binomial    ZINB 1 18        NA
+13 binomial      NB 0  9 13.182392
+14 binomial      NB 1 16  8.436568
+15 binomial    ZINB 0  9 13.182335
+16 binomial    ZINB 1 16  8.436642
 \end{example}
 
     \item \textit{plot\_fitcmp} - creates plot from compare\_fit results. The bar charts represent theoretical counts depending on the chosen distribution. Red dots describe the real number of counts.
@@ -232,7 +232,7 @@ cmp <- compare_fit(df, fitlist = fit_counts(df, model = "all"))
 {\bfseries
 \begin{example}
 df <- data.frame(poisson = rpois(25, 0.3), binomial = rbinom(25, 1, 0.8))
-cmp <- compare_fit(df, fitlist = fit_counts(df, model = "all"))
+cmp <- compare_fit(df, fitlist = fit_counts(df, model = "all")) >>>>>[WARNINGS]<<<<<
 plot_fitcmp(cmp)
 \end{example}
 }
@@ -248,22 +248,24 @@ plot_fitcmp(cmp)
 {\bfseries
 \begin{example}
 df <- data.frame(poisson = rpois(25, 0.3), binomial = rbinom(25, 1, 0.8))
-fc <- fit_counts(df, model = "all") 
+fc <- fit_counts(df, model = "all") >>>>>[WARNINGS]<<<<<
 summary_fitlist(fc) 
 \end{example}
 }
-
+% \footnotesize
+\scriptsize{
 \begin{example}
-                 count lambda     lower     upper      BIC     theta  r   model
-poisson_pois   poisson   0.28 0.1203040 0.5414518 35.04040        NA NA Poisson
-binomial_pois binomial   0.72 0.4364839 1.1056323 51.04502        NA NA Poisson
-poisson_zip    poisson     NA        NA        NA       NA        NA NA     ZIP
-binomial_zip  binomial     NA        NA        NA       NA        NA NA     ZIP
-poisson_nb     poisson   0.28 0.1203060 0.5414187 38.25952  7869.431 NA      NB
-binomial_nb   binomial   0.72 0.4364790 1.1056475 54.26417 47031.937 NA      NB
-poisson_zinb   poisson     NA        NA        NA       NA        NA NA    ZINB
-binomial_zinb binomial     NA        NA        NA       NA        NA NA    ZINB
+                 count    lambda     lower     upper      BIC      theta            r   model
+poisson_pois   poisson 0.2800000 0.1203040 0.5414518 35.04040         NA           NA Poisson
+binomial_pois binomial 0.6400000 0.3753717 1.0067089 49.50006         NA           NA Poisson
+poisson_zip    poisson 0.2800081 0.1334780 0.5873969 38.25936         NA 3.943333e-05     ZIP
+binomial_zip  binomial 0.6400005 0.3920834 1.0446771 52.71905         NA 6.847516e-06     ZIP
+poisson_nb     poisson 0.2800000 0.1203060 0.5414187 38.25952   7869.428           NA      NB
+binomial_nb   binomial 0.6400000 0.3753665 1.0067211 52.71925  33192.118           NA      NB
+poisson_zinb   poisson 0.2800036 0.1334826 0.5873575 41.47824  32338.764 1.483243e-05    ZINB
+binomial_zinb binomial 0.6400021 0.3920851 1.0446781 55.93792 191379.213 3.231081e-06    ZINB
 \end{example}
+}
 
 \end{itemize}
 
