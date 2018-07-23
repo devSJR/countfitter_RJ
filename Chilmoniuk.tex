@@ -1,6 +1,6 @@
 % !TeX root = RJwrapper.tex
 \def\arraystretch{2.5}
-\title{\emph{countfitteR}: a web server for the analysis of count data}
+\title{\emph{countfitteR}: a package for the analysis of count data}
 \author{by Jaros\l{}aw Chilmoniuk, Madeleine Ruhe, Stefan R\"{o}diger and Micha\l{} Burdukiewicz}
 
 \maketitle
@@ -9,13 +9,6 @@
 countfitteR is a package designed for the analysis of count data and for determination of the optimal distribution model, since overdispersion has severe impact on data analysis. It comes with easy to use shiny gui and webserver, providing clinical scientists simple interface for the analysis of the data, without biostatistical knowledge about nature of distributions. \\
 In countfitteR we implemented four models of distribution. Poisson, which is typically used for count data, Negative Binomial (NB) dealing with extreme values, Zero-Inflated Poisson to depict Poisson-distributed data with excessive zeros and Zero-Inflated Negative Binomial to take care of increased variability of counts and zero-inflation. It can fit counts to mentioned distributions separately or globally, depending on the source of the data.
 }
-
-\section{ToDo}
-
-\begin{itemize}
- \item Hurdle Model (Hu,M.-C. et al. (2011) Zero-Inflated and Hurdle Models of Count Data with Extra Zeros: Examples from an HIV-Risk Reduction Intervention Trial. The American Journal of Drug and Alcohol Abuse, 37, 367–375.)
-\end{itemize}
-
 
 \section{Introduction.}
 \subsection{What is count data? | prevelence of count data}
@@ -44,8 +37,6 @@ Overdispersed distributions in most cases have variance larger than the Poisson-
 
 Since overdispersion has serve impact on a data analysis, we created \emph{countfitteR} for determination of the count data distribution. Our software fits count data to four distributions, that describe counts: Poisson, NB, ZIP and ZINB. Although statistical tests designed for detecting overdispersion exist, they work properly only in a specific range of values. Furthermore, these tests only indicate that data is overdispersed, but do not point the suitable probability distribution. Therefore, \emph{countfitteR} selects the appropriate model using the Bayesian Information Criterion (BIC). The analysis is coupled with an estimation of parameters in the distribution of choice and their confidence intervals.  
 
-
-%####################################### New section?, need to format
 \section{Models}
 
 Parameters:
@@ -130,6 +121,20 @@ ADD EXAMPLE DATA SET
 
 Our application is available as a web server that may be used in an analysis of any kind count data, not only $\gamma H2AX$ and 53BP1. It is accompanied by an in-depth manual depicting the implemented framework and a rationale behind it. The guide covers both theoretical fundamentals and usage of \emph{countfitteR}, from a data import to a report generation.
 
+For more convenient access to the package’s capabilities, a graphical user interface (GUI) can be used by typing the \emph{countfitteR\_gui()} into the R console. A new window opens (Figure foto of main page). In \textit{Data upload} tab the csv file with count data can be uploaded. One of two types of csv separators can be selected, if the data file does not have a header the box should be unchecked. If no file will be inputed, example file will be loaded.
+
+In \textit{Count data} tab there are 3 submenus. \textit{Edit input data}, where the loaded data can be viewed and also modified if needed. \textit{Summary}, where the fundamental summary statistics of data can be found. In \textit{Distribution} menu the distribution of counts can be viewed in form of barplots or in table.
+
+Another tab is \textit{Fitted models}. In \textit{Mean value estimate} submenu the mean value estimates and their confidence can be viewed on  plots. By default software selects all 4 distribution models, but this can be changed in settings menu. Below table with summary of estimates, along with the BIC values of their models, can be found. The table in \textit{Coefficients} shows estimated coefficients of models. The countfitteR selects the most optimal distribution model for each count and this decision can be seen in the \textit{Decision} submenu.
+
+In \textit{Compare distributions} tab plots with compared empirical distributions of counts, defined by the model fitted to counts, can be viewed. Red points indicate the real number of counts, while bars represents the number of counts estimated by a distribution model.
+
+Other tabs are \textit{Save report}, where all the results, obtained from functions described above, can be saved in one file. In \textit{Settings} different distribution models can be selected, the confidence level can be changed and the \textit{Separate experiment} if marked it assumes that all counts may come from different distributions. In \textit{About} tab authors and link to repository of countfitteR can be found and in \textit{Help} there are general tips for each tab. 
+
+All plots can be saved in svg files and tables in csv.
+
+For creating the GUI, the shiny package is used (SHINY CITE). This allows countfitteR to run as a web server, which can be used on any pc. The software relies on several packages including ggplot2, MASS, shiny, stats, shinythemes, rhandsontable, pscl, DT, rmarkdown, reshape2, grid, gridExtra, dplyr [LINKS?].
+
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.99\columnwidth]{fig_gui}
@@ -165,8 +170,8 @@ Our application is available as a web server that may be used in an analysis of 
 
 {\bfseries
 \begin{example}
-df <- data.frame(poisson = rpois(25, 0.3), binomial = rbinom(25, 1, 0.8))
-fc <- fit_counts(df, model = "pois") 
+> df <- data.frame(poisson = rpois(25, 0.3), binomial = rbinom(25, 1, 0.8))
+> fc <- fit_counts(df, model = "pois") 
 \end{example}
 }
 
@@ -209,8 +214,8 @@ $binomialpois$model
 
 {\bfseries
 \begin{example}
-df <- data.frame(poisson = rpois(25, 0.3), binomial = rbinom(25, 1, 0.8))
-cmp <- compare_fit(df, fitlist = fit_counts(df, model = "all"))
+> df <- data.frame(poisson = rpois(25, 0.3), binomial = rbinom(25, 1, 0.8))
+> cmp <- compare_fit(df, fitlist = fit_counts(df, model = "all"))
 \end{example}
 }
 
@@ -231,9 +236,9 @@ cmp <- compare_fit(df, fitlist = fit_counts(df, model = "all"))
 
 {\bfseries
 \begin{example}
-df <- data.frame(poisson = rpois(25, 0.3), binomial = rbinom(25, 1, 0.8))
-cmp <- compare_fit(df, fitlist = fit_counts(df, model = "all")) >>>>>[WARNINGS]<<<<<
-plot_fitcmp(cmp)
+> df <- data.frame(poisson = rpois(25, 0.3), binomial = rbinom(25, 1, 0.8))
+> cmp <- compare_fit(df, fitlist = fit_counts(df, model = "all")) >>>>>[WARNINGS]<<<<<
+> plot_fitcmp(cmp)
 \end{example}
 }
 
@@ -247,9 +252,9 @@ plot_fitcmp(cmp)
 
 {\bfseries
 \begin{example}
-df <- data.frame(poisson = rpois(25, 0.3), binomial = rbinom(25, 1, 0.8))
-fc <- fit_counts(df, model = "all") >>>>>[WARNINGS]<<<<<
-summary_fitlist(fc) 
+> df <- data.frame(poisson = rpois(25, 0.3), binomial = rbinom(25, 1, 0.8))
+> fc <- fit_counts(df, model = "all") >>>>>[WARNINGS]<<<<<
+> summary_fitlist(fc) 
 \end{example}
 }
 % \footnotesize
