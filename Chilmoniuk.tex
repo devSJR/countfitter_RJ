@@ -1,6 +1,6 @@
 % !TeX root = RJwrapper.tex
 \def\arraystretch{2.5}
-\title{\emph{countfitteR}: a web server for the analysis of count data}
+\title{\emph{countfitteR}: a package for the analysis of count data}
 \author{by Jaros\l{}aw Chilmoniuk, Madeleine Ruhe, Stefan R\"{o}diger and Micha\l{} Burdukiewicz}
 
 \maketitle
@@ -129,6 +129,48 @@ ADD EXAMPLE DATA SET
 \section{Show he shiny gui}
 
 Our application is available as a web server that may be used in an analysis of any kind count data, not only $\gamma H2AX$ and 53BP1. It is accompanied by an in-depth manual depicting the implemented framework and a rationale behind it. The guide covers both theoretical fundamentals and usage of \emph{countfitteR}, from a data import to a report generation.
+
+####
+For more convenient access to the package’s capabilities, a graphical user interface (GUI) can be used by typing the countfitteR\_gui() into the R console. A new window opens (Figure foto of main page). In \textit{Data upload} tab the csv file with count data can be uploaded. One of two types of csv separators can be selected, if the data file does not have a header the box should be unchecked. If no file will be inputed, example file will be loaded.
+
+In \textit{Count data} tab there are 3 submenus. \textit{Edit input data}, where the loaded data can be viewed and also modified if needed. \textit{Summary}, where the fundamental summary statistics of data can be found. In \textit{Distribution} menu the distribuion of counts can be viewed in form of barplots or in table.
+
+Another tab is \textit{Fitted models}. In \textit{Mean value estimate} submenu the mean value estimates and their confidence can be viewed on  plots. By default software selects all 4 distribution models, but this can be changed in settings menu. Below table with summary of estimates, along with the BIC values of their models, can be found. The table in \textit{Coefficients} shows estimated coefficients of models. The countfitteR selects the most optimal distribution model for each count and this decision can be seen in the \textit{Decision} submenu.
+
+
+
+This window is shown in Figure 1. After typing the formula
+as described before and selecting the column identifying the subjects, the results can be displayed
+in a separate window. Optionally, the results can be saved as a L A TEX-table or just as plain text. For
+each hypothesis test, the degrees of freedom of the F approximation, the value of the test statistic, the
+critical value for the test, and the p-value are displayed. An example of the results window for the
+EEG data is shown in Figure 2. This data set contains of 160 subjects who have been divided into
+one of four diagnostic groups (whole-plot factor). For each subject 40 measurements from an EEG
+are available (sub-plot factor). This example is explained in more detail in Section 2.5.1. In the results
+window are the test statistics along with the degrees of freedom and p-values for main and interaction
+effects displayed.
+If only one whole- and one sub-plot factor is being used, the profile curves of the groups are
+displayed as a graphic in a separate window. The plot can be saved in the pdf format.
+The GUI relies on the function hrm\_test for doing the analysis and plot.HRM for creating the plot
+as shown in Figure 3. That is, there is no difference between using the GUI or using both generic
+functions directly. For creating the GUI, the RGtk2 package is used (Lawrence and Temple Lang, 2010).
+This package allows us to utilise the cross-platform widget-toolkit GTK+ with R. The current version
+2.20.34 of this package cannot be installed on macOS, therefore the GUI for the package HRM does
+not work on macOS.
+For opening data files, we rely on the functions provided in the package tcltk to ensure that this
+procedure works on multiple computer environments. For viewing the data we utilise the package
+RGtk2Extras (Taverner et al., 2012) which provides a very easy way do display and manipulate data in
+a GUI. The packages cairoDevice and ggplot2 are used for plotting (Lawrence, 2017; Wickham, 2009)
+profile curves. Similar as before, we have to avoid functions that only work for a specific computer
+environment. Therefore we work with the package cairoDevice which is capable of displaying a
+graphic in a window and does not depend on a specific computer environment. For saving the results
+of the function hrm\_test as a L A TEX-table, we are using the package xtable (Dahl, 2016) which converts
+a data.frame into the corresponding L A TEX code for a table.
+Because of the limitation of RGtk2, the GUI does not work on macOS (OS X 10.11.6). But the
+package HRM itself can be installed on macOS and the function hrm\_test can be run regardless.
+Apart from that, the GUI works on all other newer operating systems (for example Debian 7.3.0-12 or
+Microsoft Windows 7, 8, 10).
+####
 
 \begin{figure}[htbp]
   \centering
