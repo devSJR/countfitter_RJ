@@ -37,8 +37,6 @@ Overdispersed distributions in most cases have variance larger than the Poisson-
 
 Since overdispersion has serve impact on a data analysis, we created \emph{countfitteR} for determination of the count data distribution. Our software fits count data to four distributions, that describe counts: Poisson, NB, ZIP and ZINB. Although statistical tests designed for detecting overdispersion exist, they work properly only in a specific range of values. Furthermore, these tests only indicate that data is overdispersed, but do not point the suitable probability distribution. Therefore, \emph{countfitteR} selects the appropriate model using the Bayesian Information Criterion (BIC). The analysis is coupled with an estimation of parameters in the distribution of choice and their confidence intervals.  
 
-
-%####################################### New section?, need to format
 \section{Models}
 
 Parameters:
@@ -123,15 +121,24 @@ ADD EXAMPLE DATA SET
 
 Our application is available as a web server that may be used in an analysis of any kind count data, not only $\gamma H2AX$ and 53BP1. It is accompanied by an in-depth manual depicting the implemented framework and a rationale behind it. The guide covers both theoretical fundamentals and usage of \emph{countfitteR}, from a data import to a report generation.
 
+<<<<<<< HEAD
 ####
 For more convenient access to the package’s capabilities, a graphical user interface (GUI) can be used by typing the \emph{countfitteR\_gui()} into the R console. A new window opens (Figure foto of main page). In \textit{Data upload} tab the csv file with count data can be uploaded. One of two types of csv separators can be selected, if the data file does not have a header the box should be unchecked. If no file will be imputed, example file will be loaded.
+=======
+For more convenient access to the package’s capabilities, a graphical user interface (GUI) can be used by typing the countfitteR\_gui() into the R console. A new window opens (Figure foto of main page). In \textit{Data upload} tab the csv file with count data can be uploaded. One of two types of csv separators can be selected, if the data file does not have a header the box should be unchecked. If no file will be inputed, example file will be loaded.
+>>>>>>> b754e95a219b16e9d96e2fa7064a3aa602f3aa61
 
-In \textit{Count data} tab there are 3 submenus. \textit{Edit input data}, where the loaded data can be viewed and also modified if needed. \textit{Summary}, where the fundamental summary statistics of data can be found. In \textit{Distribution} menu the distribuion of counts can be viewed in form of barplots or in table.
+In \textit{Count data} tab there are 3 submenus. \textit{Edit input data}, where the loaded data can be viewed and also modified if needed. \textit{Summary}, where the fundamental summary statistics of data can be found. In \textit{Distribution} menu the distribution of counts can be viewed in form of barplots or in table.
 
 Another tab is \textit{Fitted models}. In \textit{Mean value estimate} submenu the mean value estimates and their confidence can be viewed on  plots. By default software selects all 4 distribution models, but this can be changed in settings menu. Below table with summary of estimates, along with the BIC values of their models, can be found. The table in \textit{Coefficients} shows estimated coefficients of models. The \emph{countfitteR} selects the most optimal distribution model for each count and this decision can be seen in the \textit{Decision} submenu.
 
+In \textit{Compare distributions} tab plots with compared empirical distributions of counts, defined by the model fitted to counts, can be viewed. Red points indicate the real number of counts, while bars represents the number of counts estimated by a distribution model.
 
+Other tabs are \textit{Save report}, where all the results, obtained from functions described above, can be saved in one file. In \textit{Settings} different distribution models can be selected, the confidence level can be changed and the \textit{Separate experiment} if marked it assumes that all counts may come from different distributions. In \textit{About} tab authors and link to repository of countfitteR can be found and in \textit{Help} there are general tips for each tab. 
 
+All plots can be saved in svg files and tables in csv.
+
+<<<<<<< HEAD
 This window is shown in Figure 1. After typing the formula
 as described before and selecting the column identifying the subjects, the results can be displayed
 in a separate window. Optionally, the results can be saved as a $\LaTeX$ table or just as plain text. For
@@ -164,6 +171,9 @@ package HRM itself can be installed on macOS and the function hrm\_test can be r
 Apart from that, the GUI works on all other newer operating systems (for example Debian 7.3.0-12 or
 Microsoft Windows 7, 8, 10).
 ####
+=======
+For creating the GUI, the shiny package is used (SHINY CITE). This allows countfitteR to run as a web server, which can be used on any pc. The software relies on several packages including ggplot2, MASS, shiny, stats, shinythemes, rhandsontable, pscl, DT, rmarkdown, reshape2, grid, gridExtra, dplyr [LINKS?].
+>>>>>>> b754e95a219b16e9d96e2fa7064a3aa602f3aa61
 
 \begin{figure}[htbp]
   \centering
