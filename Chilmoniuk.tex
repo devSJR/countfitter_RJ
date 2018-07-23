@@ -6,12 +6,12 @@
 \maketitle
 
 \abstract{
-\emph{countfitteR}is a package designed for the analysis of count data and for determination of the optimal distribution model, since overdispersion has severe impact on data analysis. It comes with easy to use shiny gui and webserver, providing clinical scientists simple interface for the analysis of the data, without biostatistical knowledge about nature of distributions. \\
+\emph{countfitteR}is a package designed for the analysis of count data and for determination of the optimal distribution model, since overdispersion has severe impact on data analysis. It comes with easy to use shiny GUI and webserver, providing clinical scientists simple interface for the analysis of the data, without biostatistical knowledge about nature of distributions. \\
 In \emph{countfitteR} we implemented four models of distribution. Poisson, which is typically used for count data, Negative Binomial (NB) dealing with extreme values, Zero-Inflated Poisson to depict Poisson-distributed data with excessive zeros and Zero-Inflated Negative Binomial to take care of increased variability of counts and zero-inflation. It can fit counts to mentioned distributions separately or globally, depending on the source of the data.
 }
 
 \section{Introduction.}
-\subsection{What is count data? | prevelence of count data}
+\subsection{What is count data? | prevalence of count data}
 Count data is a type of data in which the number of occurrences in a fixed period of time can take only the non-negative integer values. Typical examples of count data are found in transportation safety, number of office visits, hospital admissions, adverse drug events (ADEs), laboratory tests, rates of cardiac arrest or infections, and DNA double-strand breaks.
 
 % This type of data is often found in  [https://www.sciencedirect.com/science/article/pii/S0191261513001197], daily car crash [https://www.ncbi.nlm.nih.gov/pubmed/18460387], different clinical trials (eg. in the context of chronic obstructive pulmonary disease [https://www.ncbi.nlm.nih.gov/pubmed/17230434] or infectious disease [no link]) and DNA double-strand breaks (DSB) [add a link].
@@ -121,12 +121,7 @@ ADD EXAMPLE DATA SET
 
 Our application is available as a web server that may be used in an analysis of any kind count data, not only $\gamma H2AX$ and 53BP1. It is accompanied by an in-depth manual depicting the implemented framework and a rationale behind it. The guide covers both theoretical fundamentals and usage of \emph{countfitteR}, from a data import to a report generation.
 
-<<<<<<< HEAD
-####
 For more convenient access to the package’s capabilities, a graphical user interface (GUI) can be used by typing the \emph{countfitteR\_gui()} into the R console. A new window opens (Figure foto of main page). In \textit{Data upload} tab the csv file with count data can be uploaded. One of two types of csv separators can be selected, if the data file does not have a header the box should be unchecked. If no file will be imputed, example file will be loaded.
-=======
-For more convenient access to the package’s capabilities, a graphical user interface (GUI) can be used by typing the countfitteR\_gui() into the R console. A new window opens (Figure foto of main page). In \textit{Data upload} tab the csv file with count data can be uploaded. One of two types of csv separators can be selected, if the data file does not have a header the box should be unchecked. If no file will be inputed, example file will be loaded.
->>>>>>> b754e95a219b16e9d96e2fa7064a3aa602f3aa61
 
 In \textit{Count data} tab there are 3 submenus. \textit{Edit input data}, where the loaded data can be viewed and also modified if needed. \textit{Summary}, where the fundamental summary statistics of data can be found. In \textit{Distribution} menu the distribution of counts can be viewed in form of barplots or in table.
 
