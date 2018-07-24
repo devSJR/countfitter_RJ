@@ -39,7 +39,7 @@ Since overdispersion has serve impact on a data analysis, we created \emph{count
 
 \section{Models}
 
-In \emph{countfitteR} we have implemented 3 variants of the distribution equations, which are selected according to the specifications of the dataset. Examples are given below.
+In \emph{countfitteR} we have implemented 3 variants of the distribution equations, which are selected according to the specifications of the dataset. %Examples are given below.
 
 Parameters:
 \begin{itemize}
@@ -48,7 +48,7 @@ Parameters:
 \item $\theta$ - dispersion parameter.
 \end{itemize}
 
-\subsection{Example 1}
+\subsection{Variant 1}
 
 Usually the NB distribution is parameterized using $\mu$ and $\theta$, but to make comparison clearer, we use $\lambda$ instead of $\mu$. In this parameterization, NB and ZINB are treated as the mixture of Poisson and Gamma ($\Gamma$) distributions.  
 
@@ -68,9 +68,11 @@ Zero-inflated Negative Binomial & $P\{X = k\} = \begin{cases}r + (1 - r) \left( 
 \end{tabular}
 \end{center}
 
-\subsection{Example 2}
+\subsection{Variant 2}
 
 Poisson and Negative Binomial distributions have the same expected value. In case of ZIP and ZINB, the expected value is smaller than the real average number of foci per cell.
+
+% ###################################### change to real average number or leave of foci per cell ?
 
 \begin{center}
 \begin{tabular}{ |c|c| } 
@@ -88,7 +90,7 @@ ZINB & $E(X) = (1 - r)  \lambda $  \\
 \end{tabular}
 \end{center}
 
-\subsection{Example 3}
+\subsection{Variant 3}
 
 Depending on the value of $r$ the variance of ZIP and ZINB may be smaller or bigger than the variance of Poisson distribution. In case of the NB distribution, the variance is always bigger than for the Poisson distribution, although the difference becomes negligible, when the $\theta$ is much bigger than $\lambda^2$.
 
@@ -109,15 +111,15 @@ ZINB & $\textrm{var}(X) = (1 - r) \lambda \left( 1 + r\lambda  + \frac{1}{\theta
 \end{center}
 
 
-\section{2. Package - what's inside.}
+\section{2. \emph{countfitteR package}}
 
+%\section{Describe briefly main functions}
 
-\section{Describe briefly main functions}
-
-\emph{countfitteR} provides clinical scientists with a simple interface for the analysis of count data regardless of their biostatistical knowledge about the nature of the distribution. The framework covers two most common situations. In the first approach, each count is separately fitted to all above mentioned distributions. This is preferable for situations, where counts come from various sources. The second approach relies on fitting globally all counts to a distribution. Such a model is appropriate among others for technical replicates.
+\emph{countfitteR} provides clinical scientists with a simple interface for the analysis of count data regardless of their biostatistical knowledge about the nature of the distribution. The framework covers two most common situations. In the first approach, each count is separately fitted to all above mentioned distributions. This is preferable for situations, where counts come from various sources. The second approach relies on fitting globally all counts to a distribution. Such model is appropriate among others for technical replicates.
 Our software is open source and accessible also from the command-line level, it is suitable for integration into other analysis pipelines dealing with count data. Therefore, we anticipate that our finding will have a broader use. 
 The web server is accessible under: 
 \url{update me}
+% #############################################################################3 add web server url
 
 \section{Data sets}
 In the present study we used count data from an image based study of $\gamma H2AX$ foci. Analysis of such foci data is a common task both in life sciences and in diagnostics applications. Though \emph{countfitteR} was initially developed for modeling count data from the AKLIDES system, it may be used for foci data from other systems.
@@ -129,19 +131,21 @@ ADD EXAMPLE DATA SET
 
 Our application is available as a web server that may be used in an analysis of any kind count data, not only $\gamma H2AX$ and 53BP1. It is accompanied by an in-depth manual depicting the implemented framework and a rationale behind it. The guide covers both theoretical fundamentals and usage of \emph{countfitteR}, from a data import to a report generation.
 
-For more convenient access to the package’s capabilities, a graphical user interface (GUI) can be used by typing the \emph{countfitteR\_gui()} into the R console. A new window opens (Figure foto of main page). In \textit{Data upload} tab the csv file with count data can be uploaded. One of two types of csv separators can be selected, if the data file does not have a header the box should be unchecked. If no file will be inputed, example file will be loaded.
+For more convenient access to the package’s capabilities, a graphical user interface (GUI) can be used by typing the \emph{countfitteR\_gui()} into the R console. A new window opens (Figure foto of main page). 
 
-In \textit{Count data} tab there are 3 submenus. \textit{Edit input data}, where the loaded data can be viewed and also modified if needed. \textit{Summary}, where the fundamental summary statistics of data can be found. In \textit{Distribution} menu the distribution of counts can be viewed in form of barplots or in table.
+In \textit{Data upload} tab the csv file with count data can be uploaded (figure XX). One of two types of csv separators can be selected, if the data file does not have a header the box should be unchecked. If no file will be inputed, example file will be loaded.
 
-Another tab is \textit{Fitted models}. In \textit{Mean value estimate} submenu the mean value estimates and their confidence can be viewed on  plots. By default software selects all 4 distribution models, but this can be changed in settings menu. Below table with summary of estimates, along with the BIC values of their models, can be found. The table in \textit{Coefficients} shows estimated coefficients of models. The \emph{countfitteR} selects the most optimal distribution model for each count and this decision can be seen in the \textit{Decision} submenu.
+In \textit{Count data} tab there are 3 submenus. \textit{Edit input data}, where the loaded data can be viewed and also modified if needed (figure XX). \textit{Summary} summarises statistics of data in table (figure XX). In \textit{Distribution} menu the distribution of counts can be viewed in form of barplots or table (figure XX).
 
-In \textit{Compare distributions} tab plots with compared empirical distributions of counts, defined by the model fitted to counts, can be viewed. Red points indicate the real number of counts, while bars represents the number of counts estimated by a distribution model.
+Another tab is \textit{Fitted models}. In \textit{Mean value estimate} submenu the mean value estimates and their confidence can be viewed on the plots. Below table with summary of estimates, along with the BIC values of their models can be found (figure XX). The table in \textit{Coefficients} shows estimated coefficients of models (figure XX). The \emph{countfitteR} selects the most optimal distribution model for each count and this decision can be seen in the \textit{Decision} submenu (figure XX).
 
-Other tabs are \textit{Save report}, where all the results, obtained from functions described above, can be saved in one file. In \textit{Settings} different distribution models can be selected, the confidence level can be changed and the \textit{Separate experiment} if marked it assumes that all counts may come from different distributions. In \textit{About} tab authors and link to repository of \emph{countfitteR} can be found and in \textit{Help} there are general tips for each tab. 
+In \textit{Compare distributions} tab plots with compared empirical distributions of counts, defined by the model fitted to counts, can be viewed. Red points indicate the real number of counts, while bars represents the number of counts estimated by a distribution model (figure XX).
+
+Other tabs are \textit{Save report}, where all the results, obtained from functions described above, can be saved in one file (figure XX). In \textit{Settings} by default all 4 distribution models are selected for the analyses, the confidence level can be changed and the \textit{Separate experiment} if marked it assumes that all counts may come from different distributions (figure XX). In \textit{About} tab authors and link to repository of \emph{countfitteR} can be found and in \textit{Help} there are general tips for each tab. 
 
 All plots can be saved in svg files and tables in csv.
 
-To create the GUI, the shiny package was used. This allowed \emph{countfitteR} to run as a web server, which can be used on any pc. The software relies on several packages including ggplot2 \citep{ggplot2}, MASS \citep{MASS}, shiny \citep{shiny}, stats \citep{Rrr}, shinythemes \citep{shinythemes}, rhandsontable \citep{rhandsontable}, pscl \citep{pscl}, DT \citep{DT}, rmarkdown \citep{rmarkdown}, reshape2 \citep{reshape2}, grid \citep{Rrr}, gridExtra \citep{gridextra}, dplyr  \citep{dplyr}.
+The graphical user interface  (GUI) was created using  the shiny package \citep{shiny}. This allows \emph{countfitteR} to run as a web server, which can be used on a webbrowser on any pc. The software relies on several packages including ggplot2 \citep{ggplot2}, MASS \citep{MASS}, stats \citep{Rrr}, shinythemes \citep{shinythemes}, rhandsontable \citep{rhandsontable}, pscl \citep{pscl}, DT \citep{DT}, rmarkdown \citep{rmarkdown}, reshape2 \citep{reshape2}, grid \citep{Rrr}, gridExtra \citep{gridextra}, dplyr  \citep{dplyr}.
 
 
 \begin{figure}[htbp]
