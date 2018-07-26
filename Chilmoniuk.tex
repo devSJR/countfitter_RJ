@@ -88,7 +88,7 @@ NB & $E(X) = \lambda $ \\
 ZINB & $E(X) = (1 - r)  \lambda $  \\
 \hline
 \end{tabular}
-\end{center}
+\end{center}parameterization
 
 \subsection{Variant 3}
 
@@ -123,9 +123,12 @@ The web server is accessible under:
 
 \section{Data sets}
 In the present study we used count data from an image based study of $\gamma H2AX$ foci. Analysis of such foci data is a common task both in life sciences and in diagnostics applications. Though \emph{countfitteR} was initially developed for modeling count data from the AKLIDES system, it may be used for foci data from other systems.
-The data were prepared as described in \citep{rodiger_quantification_2018}.
+#The data were prepared as described in \citep{rodiger_quantification_2018}. The Comprehensive R Archive Network (CRAN), which archives R packages, has a recommended size limit of five megabytes (MB) \citep{anderson_hosting_2017}. Therefore, the following data sets are include only.
 
-ADD EXAMPLE DATA SET
+\begin{itemize}
+ \item ADD EXAMPLE DATA SET with brief decription
+\end{itemize}
+
 
 \section{Shiny GUI} %Graphical User Interface
 
@@ -314,8 +317,10 @@ binomial_zinb binomial 0.6400021 0.3920851 1.0446781 55.93792 191379.213 3.23108
 
 \section{3. Results and conclusion.}
 
-One of the most important features of \emph{countfitteR} and its shiny GUI is deciding which distribution is optimal for the dataset. It is also easy to use by people that does not have any experience with using command line and bioinformatics. 
-Currently you can find distribution analysis software like \emph{ShrinkBayes} \citep{shrinkbayes}, \emph{COUNT} \citep{hilbe_modeling_2014, hilbe_negative_2011-1}, \emph{pscl} \citep{pscl}, \emph{countreg} [strange citation] and CountsEPPM \citep{countseppm} that analyses distributions of count datasets but none of them have user friendly interface. All of the listed packages must be run from the command line. Moreover, unlike \emph{countfitteR}, they do not have functions that compare distributions and decides the most optimal one.
+One of the most important characteristics of \emph{countfitteR} and its shiny GUI is deciding which distribution is optimal for the dataset. It is easy to use by people who do not have experience with using command line, statistics and bioinformatics. 
+Currently one can find distribution analysis software like \emph{ShrinkBayes} \citep{shrinkbayes}, \emph{COUNT} \citep{hilbe_modeling_2014, hilbe_negative_2011-1}, \emph{pscl} \citep{pscl}, \emph{countreg} [strange citation] and \emph{CountsEPPM} \citep{countseppm} that analyses distributions of count datasets but none of them have user friendly interface. All of the listed packages must be run from the command line. Moreover, unlike \emph{countfitteR}, they do not have functions that compare distributions and decides the most optimal one.
+
+For reproducible research, the availability of algorithmic tools for accessing and analyzing open data collections is of great benefit \cite{lahti_retrieval_2017}. Since \emph{countfitteR} is based on R it is good for reproducible research [...add more text here ...] \citep{leeper_archiving_2014,thioulouse_online_2010,rodiger_r_2015,liu_r_2014,Biecek_2017}
 
 
 % The command line is a user interface. Some find the cmd line even more convenient than the GUI. That is not a good argument.
@@ -351,14 +356,14 @@ The most important functions of the package can be run from command line, enabli
   ORCiD if desired\\
   \email{Madeleine.Ruhe1@b-tu.de}}
 
-\address{Stefan R\"{o}diger\\
+\address{Stefan R\"{o}diger (corresponding author)\\
   Brandenburg University of Technology Cottbus - Senftenberg\\
   Universit\"atsplatz 1, Senftenberg\\
   Germany\\
   ORCiD: 0000-0002-1441-6512\\
   \email{stefan.roediger@b-tu.de}}
 
-\address{Micha\l{} Burdukiewicz\\
+\address{Micha\l{} Burdukiewicz (corresponding author)\\
   University of Wroc\l{}aw\\
   Pl. Uniwersytecki 1, Wroc\l{}aw\\
   Poland\\
