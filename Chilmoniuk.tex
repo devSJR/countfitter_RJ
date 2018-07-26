@@ -134,35 +134,98 @@ In the present study we used count data from an image based study of $\gamma H2A
 
 Our application is available as a web server that may be used in an analysis of any kind count data, not only $\gamma H2AX$ and 53BP1. It is accompanied by an in-depth manual depicting the implemented framework and a rationale behind it. The guide covers both theoretical fundamentals and usage of \emph{countfitteR}, from a data import to a report generation.
 
-For more convenient access to the package’s capabilities, a graphical user interface (GUI) can be used by typing the \emph{countfitteR\_gui()} into the R console. A new window opens (Figure XX RKward). 
+For more convenient access to the package’s capabilities, a graphical user interface (GUI) can be used by typing the \emph{countfitteR\_gui()} into the R console. A new window opens (Figure \ref{fig_gui}). 
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.99\columnwidth]{fig_gui}
   \caption{\emph{countfitteR\_gui()} function running in the \emph{RKWard} GUI/IDE (v. 0.7.0z+0.7.1+devel1) on Kubuntu 18.04. \citep{rodiger_rkward:_2012}.}
-  \label{figure:fig_gui.png}
+  \label{fig_gui}
+\end{figure}
+In \textit{Data upload} tab the csv file with count data can be uploaded (Figure \ref{cf_main}). One of two types of csv separators can be selected, if the data file does not have a header the box should be unchecked. If no file will be inputed, example file will be loaded.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.99\columnwidth]{fig/cf_main.png}
+  \caption{Starting page of the \emph{countfitteR} shiny GUI, where user can upload their data.}
+    \label{cf_main}
 \end{figure}
 
-In \textit{Data upload} tab the csv file with count data can be uploaded (figure XX). One of two types of csv separators can be selected, if the data file does not have a header the box should be unchecked. If no file will be inputed, example file will be loaded.
+In \textit{Count data} tab there are 3 submenus. \textit{Edit input data}, where the loaded data can be viewed and also modified if needed (Figure \ref{cf_cd1}). \textit{Summary} summarises statistics of data in table (Figure \ref{cf_cd2}). In \textit{Distribution} menu the distribution of counts can be viewed in form of barplots or table (Figure \ref{cf_cd3}).
 
-In \textit{Count data} tab there are 3 submenus. \textit{Edit input data}, where the loaded data can be viewed and also modified if needed (figure XX). \textit{Summary} summarises statistics of data in table (figure XX). In \textit{Distribution} menu the distribution of counts can be viewed in form of barplots or table (figure XX).
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.99\columnwidth]{fig/cf_cd1.png}
+  \caption{Edit input data.}
+    \label{cf_cd1}
+\end{figure}
 
-Another tab is \textit{Fitted models}. In \textit{Mean value estimate} submenu the mean value estimates and their confidence can be viewed on the plots. Below table with summary of estimates, along with the BIC values of their models can be found (figure XX). The table in \textit{Coefficients} shows estimated coefficients of models (figure XX). The \emph{countfitteR} selects the most optimal distribution model for each count and this decision can be seen in the \textit{Decision} submenu (figure XX).
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.99\columnwidth]{fig/cf_cd2.png}
+  \caption{Summary statistics.}
+    \label{cf_cd2}
+\end{figure}
 
-In \textit{Compare distributions} tab plots with compared empirical distributions of counts, defined by the model fitted to counts, can be viewed. Red points indicate the real number of counts, while bars represents the number of counts estimated by a distribution model (figure XX).
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.99\columnwidth]{fig/cf_cd3.png}
+  \caption{Distribution of counts and Contingency table of counts}
+    \label{cf_cd3}
+\end{figure}
 
-Other tabs are \textit{Save report}, where all the results, obtained from functions described above, can be saved in one file (figure XX). In \textit{Settings} by default all 4 distribution models are selected for the analyses, the confidence level can be changed and the \textit{Separate experiment} if marked it assumes that all counts may come from different distributions (figure XX). In \textit{About} tab authors and link to repository of \emph{countfitteR} can be found and in \textit{Help} there are general tips for each tab. 
+Another tab is \textit{Fitted models}. In \textit{Mean value estimate} submenu the mean value estimates and their confidence can be viewed on the plots. Below table with summary of estimates, along with the BIC values of their models can be found (Figure \ref{cf_fm1}). The table in \textit{Coefficients} shows estimated coefficients of models (Figure \ref{cf_fm2}). The \emph{countfitteR} selects the most optimal distribution model for each count and this decision can be seen in the \textit{Decision} submenu (Figure \ref{cf_fm3}).
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.99\columnwidth]{fig/cf_fm1.png}
+  \caption{Mean value estimate and its confidence and Summary of estimates.}
+    \label{cf_fm1}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.99\columnwidth]{fig/cf_fm2.png}
+  \caption{Coefficients.}
+    \label{cf_fm2}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.99\columnwidth]{fig/cf_fm3.png}
+  \caption{Decision.}
+    \label{cf_fm3}
+\end{figure}
+
+In \textit{Compare distributions} tab plots with compared empirical distributions of counts, defined by the model fitted to counts, can be viewed. Red points indicate the real number of counts, while bars represents the number of counts estimated by a distribution model (Figure \ref{cf_cmp}).
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.99\columnwidth]{fig/cf_cmp.png}
+  \caption{Compare distribution.}
+    \label{cf_cmp}
+\end{figure}
+
+Other tabs are \textit{Save report}, where all the results, obtained from functions described above, can be saved in one file (Figure \ref{cj_rep}). In \textit{Settings} by default all 4 distribution models are selected for the analyses, the confidence level can be changed and the \textit{Separate experiment} if marked it assumes that all counts may come from different distributions (Figure \ref{cj_set}). In \textit{About} tab authors and link to repository of \emph{countfitteR} can be found and in \textit{Help} there are general tips for each tab. 
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.99\columnwidth]{cj_rep}
+  \caption{Fragment of report generated by \emph{countfitteR}.}
+  \label{cj_rep}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.99\columnwidth]{fig/cf_set.png}
+  \caption{Options in settings menu.}
+  \label{cj_set}
+\end{figure}
 
 All plots can be saved in svg files and tables in csv.
 
 The graphical user interface  (GUI) was created using  the shiny package \citep{shiny}. This allows \emph{countfitteR} to run as a web server, which can be used on a web browser on any personal computer. The software relies on several packages including \emph{ggplot2} \citep{ggplot2}, \emph{MASS} \citep{MASS}, \emph{stats} \citep{Rrr}, \emph{shinythemes} \citep{shinythemes}, \emph{rhandsontable} \citep{rhandsontable}, \emph{pscl} \citep{pscl}, \emph{DT} \citep{DT}, \emph{rmarkdown} \citep{rmarkdown}, \emph{reshape2} \citep{reshape2}, \emph{grid} \citep{Rrr}, \emph{gridExtra} \citep{gridextra} and \emph{dplyr}  \citep{dplyr}.
 
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.99\columnwidth]{cj_rep}
-  \caption{Fragment of report created by \emph{countfitteR}.}
-  \label{figure:cj_rep.png}
-\end{figure}
 
 % \begin{figure}[htbp]
 %   \centering
