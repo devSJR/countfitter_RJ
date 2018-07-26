@@ -6,24 +6,24 @@
 \maketitle
 
 \abstract{
-\emph{countfitteR}is a package designed for the analysis of count data and for determination of the optimal distribution model, since overdispersion has severe impact on data analysis. It comes with easy to use shiny GUI and webserver, providing clinical scientists simple interface for the analysis of the data, without biostatistical knowledge about nature of distributions. \\
+\emph{countfitteR}is a package designed for the analysis of count data and for determination of the most optimal distribution model, since overdispersion has severe impact on data analysis. It comes with easy to use shiny GUI and webserver, providing clinical scientists simple interface for the analysis of the data, without biostatistical knowledge about nature of distributions. \\
 In \emph{countfitteR} we implemented four models of distribution. Poisson, which is typically used for count data, Negative Binomial (NB) dealing with extreme values, Zero-Inflated Poisson to depict Poisson-distributed data with excessive zeros and Zero-Inflated Negative Binomial to take care of increased variability of counts and zero-inflation. It can fit counts to mentioned distributions separately or globally, depending on the source of the data.
 }
 
-\section{Introduction.}
-\subsection{What is count data? | prevalence of count data}
-Count data is a type of data in which the number of occurrences in a fixed period of time can take only the non-negative integer values. Typical examples of count data are found in transportation safety, number of office visits, hospital admissions, adverse drug events (ADEs), laboratory tests, rates of cardiac arrest or infections, and DNA double-strand breaks.
+\section{Introduction}
+\subsection{Count data and their prevalence}
+Count data is a type of data in which the number of occurrences in a fixed period of time can take only the non-negative integer values. Examples of count data are found in transportation safety, number of office visits, hospital admissions, adverse drug events (ADEs), laboratory tests, rates of cardiac arrest or infections, and DNA double-strand breaks.
 
 % This type of data is often found in  [https://www.sciencedirect.com/science/article/pii/S0191261513001197], daily car crash [https://www.ncbi.nlm.nih.gov/pubmed/18460387], different clinical trials (eg. in the context of chronic obstructive pulmonary disease [https://www.ncbi.nlm.nih.gov/pubmed/17230434] or infectious disease [no link]) and DNA double-strand breaks (DSB) [add a link].
 
-We developed a system that facilitates the digital  enumeration of DSBs via the phosphorylated histone  variant H2AX ($\gamma H2AX$), which is an important  biodositometer during radiation treatment. $\gamma H2AX$ is an important biomarker of physiological and pathological cellular processes \cite{reddig_dna_2018,rodiger_quantification_2018}. In addition, associated biomarkers such as the p53-binding protein 1 (53BP1) may also be detected during the screening. The foci quantification is a fast and sensitive approach for detection of one of the critical types of DNA damage introduced by radiation, cellular process or toxic agent with applications in research and clinical environment (e.g., individual radiosensitivity). Although these biomarkers play a crucial role in diagnostics, their levels vary not only between patients but also between replicates.
+We developed a system that facilitates the digital  enumeration of DSBs via the phosphorylated histone  variant H2AX ($\gamma H2AX$), which is an important  biodositometer during radiation treatment. $\gamma H2AX$ is an important biomarker of physiological and pathological cellular processes \citep{reddig_dna_2018,rodiger_quantification_2018}. In addition, associated biomarkers such as the p53-binding protein 1 (53BP1) may also be detected during the screening. The foci quantification is a fast and sensitive approach for detection of one of the critical types of DNA damage introduced by radiation, cellular process or toxic agent with applications in research and clinical environment (e.g., individual radiosensitivity). Although these biomarkers play a crucial role in diagnostics, their levels vary not only between patients but also between replicates.
 
-The Poisson model is typically used for count data. However, in the context of DSBs, real foci data often do not satisfy constraints implied by this distribution. This suggests that another probability distribution for positive integers may describe a data set more accurately. Therefore, an identification of the probability distribution of $\gamma H2AX$ foci and associated biomarkers is vital for the precise estimation of the mean number of foci per cell and its confidence intervals.
+The Poisson distribution is presumably most commonly used when dealing with count data \citep{morina_generalized_2015}. However, in the context of DSBs, real foci data often do not satisfy constraints implied by this distribution. This suggests that another probability distribution for positive integers may describe a data set more accurately. Therefore, an identification of the probability distribution of $\gamma H2AX$ foci and associated biomarkers is vital for the precise estimation of the mean number of foci per cell and its confidence intervals.
 
 
-\section{why not always poisson? overdispersion}
+\section{Overdispersion}
 
-Overdispersion is an important concept in the analysis of the data. It occurs when the variation is much higher than we would expect. Usually when this happens we try to fit our dataset to distribution model in order to get the sample mean as close as possible to population mean. Some distribution models have an attribute to fit variabilities of observations.
+Overdispersion is an important concept in the analysis of the data. It occurs when the variation is much higher than expected. Usually when this happens we try to fit our dataset to distribution model in order to get the sample mean as close as possible to population mean \citep{morina_generalized_2015}. Some distribution models have an attribute to fit variabilities of observations.
 
 % Overdispersion may be caused by the increased variability of counts, for example when a counting algorithm under- and overcounts. In such situation the data might have the NB distribution. The other cause of overdispersion is called zero-inflation and occurs in datasets, where some factor introduced faulty zeros. That means that some counts, regardless of their real state, are treated as zeros. In this case, data has the ZIP distribution. If both faulty zeros and increased variance affect the data, the ZINB distribution is the most appropriate.\\
 % Count data is commonly assumed to be Poisson-distributed. One of the important features of the Poisson distribution is the equality of variance and expected value. But often we encounter overdispersed datasets, when the variance is bigger than the mean, and the commonly used model does not have attribute to fit variabilities of observations as close as possible to population mean.\\
@@ -35,11 +35,11 @@ The second cause of overdispersion is zero-inflation, an excessive number of zer
 
 Overdispersed distributions in most cases have variance larger than the Poisson-distributed counts with the same average number of foci per cell ($\lambda$). In consequence, the confidence intervals are wider than in the case of the Poisson distribution. It directly affects the conclusion drawn from a data analysis, because bigger change of the mean number of foci is required, to support the significance of the impact of the treatment. 
 
-Since overdispersion has serve impact on a data analysis, we created \emph{countfitteR} for determination of the count data distribution. Our software fits count data to four distributions, that describe counts: Poisson, NB, ZIP and ZINB. Although statistical tests designed for detecting overdispersion exist, they work properly only in a specific range of values. Furthermore, these tests only indicate that data is overdispersed, but do not point the suitable probability distribution. Therefore, \emph{countfitteR} selects the appropriate model using the Bayesian Information Criterion (BIC). The analysis is coupled with an estimation of parameters in the distribution of choice and their confidence intervals.  
+Since overdispersion has serve impact on a data analysis, we created \emph{countfitteR} for determination of the count data distribution. Our software fits count data to four distributions, that describe counts: Poisson, NB, ZIP and ZINB. Although statistical tests designed for detecting overdispersion exist, they work properly only in a specific range of values. Furthermore, these tests only indicate that data is overdispersed, but do not point the suitable probability distribution. Therefore, \emph{countfitteR} selects the most appropriate model using the Bayesian Information Criterion (BIC). The analysis is coupled with an estimation of parameters in the distribution of choice and their confidence intervals.  
 
 \section{Models}
 
-In \emph{countfitteR} we have implemented 3 variants of the distribution equations, which are selected according to the specifications given below.
+In \emph{countfitteR} we have implemented 3 variants of the distribution equations, which are selected according to the specifications of the dataset. %Examples are given below.
 
 Parameters:
 \begin{itemize}
@@ -48,7 +48,7 @@ Parameters:
 \item $\theta$ - dispersion parameter.
 \end{itemize}
 
-\subsection{Example 1}
+\subsection{Variant 1}
 
 Usually the NB distribution is parameterized using $\mu$ and $\theta$, but to make comparison clearer, we use $\lambda$ instead of $\mu$. In this parameterization, NB and ZINB are treated as the mixture of Poisson and Gamma ($\Gamma$) distributions.  
 
@@ -68,9 +68,11 @@ Zero-inflated Negative Binomial & $P\{X = k\} = \begin{cases}r + (1 - r) \left( 
 \end{tabular}
 \end{center}
 
-\subsection{Example 2}
+\subsection{Variant 2}
 
 Poisson and Negative Binomial distributions have the same expected value. In case of ZIP and ZINB, the expected value is smaller than the real average number of foci per cell.
+
+% ###################################### change to real average number or leave of foci per cell ?
 
 \begin{center}
 \begin{tabular}{ |c|c| } 
@@ -86,9 +88,9 @@ NB & $E(X) = \lambda $ \\
 ZINB & $E(X) = (1 - r)  \lambda $  \\
 \hline
 \end{tabular}
-\end{center}
+\end{center}parameterization
 
-\subsection{Example 3}
+\subsection{Variant 3}
 
 Depending on the value of $r$ the variance of ZIP and ZINB may be smaller or bigger than the variance of Poisson distribution. In case of the NB distribution, the variance is always bigger than for the Poisson distribution, although the difference becomes negligible, when the $\theta$ is much bigger than $\lambda^2$.
 
@@ -109,47 +111,51 @@ ZINB & $\textrm{var}(X) = (1 - r) \lambda \left( 1 + r\lambda  + \frac{1}{\theta
 \end{center}
 
 
-\section{2. Package - what's inside.}
+\section{2. \emph{countfitteR package}}
 
+%\section{Describe briefly main functions}
 
-\section{Describe briefly main functions}
-
-\emph{countfitteR} provides clinical scientists with a simple interface for the analysis of count data regardless of their biostatistical knowledge about the nature of the distribution. The framework covers two most common situations. In the first approach, each count is separately fitted to all above mentioned distributions. This is preferable for situations, where counts come from various sources. The second approach relies on fitting globally all counts to a distribution. Such a model is appropriate among others for technical replicates.
+\emph{countfitteR} provides clinical scientists with a simple interface for the analysis of count data regardless of their biostatistical knowledge about the nature of the distribution. The framework covers two most common situations. In the first approach, each count is separately fitted to all above mentioned distributions. This is preferable for situations, where counts come from various sources. The second approach relies on fitting globally all counts to a distribution. Such model is appropriate among others for technical replicates.
 Our software is open source and accessible also from the command-line level, it is suitable for integration into other analysis pipelines dealing with count data. Therefore, we anticipate that our finding will have a broader use. 
 The web server is accessible under: 
 \url{update me}
+% #############################################################################3 add web server url
 
 \section{Data sets}
 In the present study we used count data from an image based study of $\gamma H2AX$ foci. Analysis of such foci data is a common task both in life sciences and in diagnostics applications. Though \emph{countfitteR} was initially developed for modeling count data from the AKLIDES system, it may be used for foci data from other systems.
-The data were prepared as described in \citep{rodiger_quantification_2018}.
+#The data were prepared as described in \citep{rodiger_quantification_2018}. The Comprehensive R Archive Network (CRAN), which archives R packages, has a recommended size limit of five megabytes (MB) \citep{anderson_hosting_2017}. Therefore, the following data sets are include only.
 
-ADD EXAMPLE DATA SET
+\begin{itemize}
+ \item ADD EXAMPLE DATA SET with brief decription
+\end{itemize}
 
-\section{Show he shiny gui}
+
+\section{Shiny GUI} %Graphical User Interface
 
 Our application is available as a web server that may be used in an analysis of any kind count data, not only $\gamma H2AX$ and 53BP1. It is accompanied by an in-depth manual depicting the implemented framework and a rationale behind it. The guide covers both theoretical fundamentals and usage of \emph{countfitteR}, from a data import to a report generation.
 
-For more convenient access to the package’s capabilities, a graphical user interface (GUI) can be used by typing the \emph{countfitteR\_gui()} into the R console. A new window opens (Figure foto of main page). In \textit{Data upload} tab the csv file with count data can be uploaded. One of two types of csv separators can be selected, if the data file does not have a header the box should be unchecked. If no file will be inputed, example file will be loaded.
-
-In \textit{Count data} tab there are 3 submenus. \textit{Edit input data}, where the loaded data can be viewed and also modified if needed. \textit{Summary}, where the fundamental summary statistics of data can be found. In \textit{Distribution} menu the distribution of counts can be viewed in form of barplots or in table.
-
-Another tab is \textit{Fitted models}. In \textit{Mean value estimate} submenu the mean value estimates and their confidence can be viewed on  plots. By default software selects all 4 distribution models, but this can be changed in settings menu. Below table with summary of estimates, along with the BIC values of their models, can be found. The table in \textit{Coefficients} shows estimated coefficients of models. The \emph{countfitteR} selects the most optimal distribution model for each count and this decision can be seen in the \textit{Decision} submenu.
-
-In \textit{Compare distributions} tab plots with compared empirical distributions of counts, defined by the model fitted to counts, can be viewed. Red points indicate the real number of counts, while bars represents the number of counts estimated by a distribution model.
-
-Other tabs are \textit{Save report}, where all the results, obtained from functions described above, can be saved in one file. In \textit{Settings} different distribution models can be selected, the confidence level can be changed and the \textit{Separate experiment} if marked it assumes that all counts may come from different distributions. In \textit{About} tab authors and link to repository of \emph{countfitteR} can be found and in \textit{Help} there are general tips for each tab. 
-
-All plots can be saved in svg files and tables in csv.
-
-To create the GUI, the shiny package was used. This allowed \emph{countfitteR} to run as a web server, which can be used on any pc. The software relies on several packages including ggplot2 \citep{ggplot2}, MASS \citep{MASS}, shiny \citep{shiny}, stats \citep{Rrr}, shinythemes \citep{shinythemes}, rhandsontable \citep{rhandsontable}, pscl \citep{pscl}, DT \citep{DT}, rmarkdown \citep{rmarkdown}, reshape2 \citep{reshape2}, grid \citep{Rrr}, gridExtra \citep{gridextra}, dplyr  \citep{dplyr}.
-
+For more convenient access to the package’s capabilities, a graphical user interface (GUI) can be used by typing the \emph{countfitteR\_gui()} into the R console. A new window opens (Figure XX RKward). 
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.99\columnwidth]{fig_gui}
-  \caption{\emph{countfitteR\_gui()} function running in the \emph{RKWard} GUI/IDE \citep{rodiger_rkward:_2012}.}
+  \caption{\emph{countfitteR\_gui()} function running in the \emph{RKWard} GUI/IDE (v. 0.7.0z+0.7.1+devel1) on Kubuntu 18.04. \citep{rodiger_rkward:_2012}.}
   \label{figure:fig_gui.png}
 \end{figure}
+
+In \textit{Data upload} tab the csv file with count data can be uploaded (figure XX). One of two types of csv separators can be selected, if the data file does not have a header the box should be unchecked. If no file will be inputed, example file will be loaded.
+
+In \textit{Count data} tab there are 3 submenus. \textit{Edit input data}, where the loaded data can be viewed and also modified if needed (figure XX). \textit{Summary} summarises statistics of data in table (figure XX). In \textit{Distribution} menu the distribution of counts can be viewed in form of barplots or table (figure XX).
+
+Another tab is \textit{Fitted models}. In \textit{Mean value estimate} submenu the mean value estimates and their confidence can be viewed on the plots. Below table with summary of estimates, along with the BIC values of their models can be found (figure XX). The table in \textit{Coefficients} shows estimated coefficients of models (figure XX). The \emph{countfitteR} selects the most optimal distribution model for each count and this decision can be seen in the \textit{Decision} submenu (figure XX).
+
+In \textit{Compare distributions} tab plots with compared empirical distributions of counts, defined by the model fitted to counts, can be viewed. Red points indicate the real number of counts, while bars represents the number of counts estimated by a distribution model (figure XX).
+
+Other tabs are \textit{Save report}, where all the results, obtained from functions described above, can be saved in one file (figure XX). In \textit{Settings} by default all 4 distribution models are selected for the analyses, the confidence level can be changed and the \textit{Separate experiment} if marked it assumes that all counts may come from different distributions (figure XX). In \textit{About} tab authors and link to repository of \emph{countfitteR} can be found and in \textit{Help} there are general tips for each tab. 
+
+All plots can be saved in svg files and tables in csv.
+
+The graphical user interface  (GUI) was created using  the shiny package \citep{shiny}. This allows \emph{countfitteR} to run as a web server, which can be used on a web browser on any personal computer. The software relies on several packages including \emph{ggplot2} \citep{ggplot2}, \emph{MASS} \citep{MASS}, \emph{stats} \citep{Rrr}, \emph{shinythemes} \citep{shinythemes}, \emph{rhandsontable} \citep{rhandsontable}, \emph{pscl} \citep{pscl}, \emph{DT} \citep{DT}, \emph{rmarkdown} \citep{rmarkdown}, \emph{reshape2} \citep{reshape2}, \emph{grid} \citep{Rrr}, \emph{gridExtra} \citep{gridextra} and \emph{dplyr}  \citep{dplyr}.
 
 \begin{figure}[htbp]
   \centering
@@ -311,12 +317,17 @@ binomial_zinb binomial 0.6400021 0.3920851 1.0446781 55.93792 191379.213 3.23108
 
 \section{3. Results and conclusion.}
 
-One of the most important features of \emph{countfitteR} and its shiny GUI is deciding which distribution is optimal for the dataset. It is also easy to use by people that doesnt have any experiance with using command line and bioinformatics. 
-Currently you can find distribution analysis software like ShrinkBayes \citep{shrinkbayes}, COUNT \citep{hilbe_modeling_2014, hilbe_negative_2011-1}, pscl \citep{pscl}, countreg [strange citation] and CountsEPPM \citep{countseppm} that analyses distributions of count datasets but none of them have user friendly interface. All of the listed packages must be run from the command line. Moreover, unlike \emph{countfitteR}, they do not have functions that compare distributions and decides the most optimal one.
+One of the most important characteristics of \emph{countfitteR} and its shiny GUI is deciding which distribution is optimal for the dataset. It is easy to use by people who do not have experience with using command line, statistics and bioinformatics. 
+Currently one can find distribution analysis software like \emph{ShrinkBayes} \citep{shrinkbayes}, \emph{COUNT} \citep{hilbe_modeling_2014, hilbe_negative_2011-1}, \emph{pscl} \citep{pscl}, \emph{countreg} [strange citation] and \emph{CountsEPPM} \citep{countseppm} that analyses distributions of count datasets but none of them have user friendly interface. All of the listed packages must be run from the command line. Moreover, unlike \emph{countfitteR}, they do not have functions that compare distributions and decides the most optimal one.
 
-% There are currently    some packages like ShrinkBayes [], COUNT [], pscl [], countreg [] and CountsEPPM [] that analyses distributions of count datasets but none of them have user friendly interface. Moreover 
+For reproducible research, the availability of algorithmic tools for accessing and analyzing open data collections is of great benefit \cite{lahti_retrieval_2017}. Since \emph{countfitteR} is based on R it is good for reproducible research [...add more text here ...] \citep{leeper_archiving_2014,thioulouse_online_2010,rodiger_r_2015,liu_r_2014,Biecek_2017}
 
-\section{show other count-based packages}
+
+% The command line is a user interface. Some find the cmd line even more convenient than the GUI. That is not a good argument.
+% ShrinkBayes and others either focus on a specific data set (e.g. sequencing data) or look at a single model (e.g. either Poisson or binomial. ...).
+% We have a package that simultaneously looks at different models, that asses the optimal and that has a GUI.
+
+% \section{show other count-based packages}
 
 % ShrinkBayes: a versatile R-package for analysis of count-based sequencing data in complex study designs.\\
 % COUNT \\
@@ -324,14 +335,10 @@ Currently you can find distribution analysis software like ShrinkBayes \citep{sh
 % countreg: Count Data Regression \\
 % CountsEPPM 
 
-\section{some showcases}
-
-ADD SHINY GUI EXAMPLES
-
 \section{Summary}
 
 This article describes the \emph{countfitteR} package, which chooses the best distribution model for given count data set. Most functions in package \emph{countfitteR} is available as shiny web server, that can run locally. Nevertheless, as described, this R package can be applied in analysis of any type of count data, it needs to be in proper format. 
-The most important functions of the package can be run from command line, enabling creation of pipeslines.
+The most important functions of the package can be run from command line, enabling creation of pipelines.
 
 \bibliography{Chilmoniuk}
 
@@ -349,14 +356,14 @@ The most important functions of the package can be run from command line, enabli
   ORCiD if desired\\
   \email{Madeleine.Ruhe1@b-tu.de}}
 
-\address{Stefan R\"{o}diger\\
+\address{Stefan R\"{o}diger (corresponding author)\\
   Brandenburg University of Technology Cottbus - Senftenberg\\
   Universit\"atsplatz 1, Senftenberg\\
   Germany\\
   ORCiD: 0000-0002-1441-6512\\
   \email{stefan.roediger@b-tu.de}}
 
-\address{Micha\l{} Burdukiewicz\\
+\address{Micha\l{} Burdukiewicz (corresponding author)\\
   University of Wroc\l{}aw\\
   Pl. Uniwersytecki 1, Wroc\l{}aw\\
   Poland\\
