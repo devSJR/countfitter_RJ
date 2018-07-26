@@ -12,18 +12,18 @@ In \emph{countfitteR} we implemented four models of distribution. Poisson, which
 
 \section{Introduction}
 \subsection{Count data and their prevalence}
-Count data is a type of data in which the number of occurrences in a fixed period of time can take only the non-negative integer values. Typical examples of count data are found in transportation safety, number of office visits, hospital admissions, adverse drug events (ADEs), laboratory tests, rates of cardiac arrest or infections, and DNA double-strand breaks.
+Count data is a type of data in which the number of occurrences in a fixed period of time can take only the non-negative integer values. Examples of count data are found in transportation safety, number of office visits, hospital admissions, adverse drug events (ADEs), laboratory tests, rates of cardiac arrest or infections, and DNA double-strand breaks.
 
 % This type of data is often found in  [https://www.sciencedirect.com/science/article/pii/S0191261513001197], daily car crash [https://www.ncbi.nlm.nih.gov/pubmed/18460387], different clinical trials (eg. in the context of chronic obstructive pulmonary disease [https://www.ncbi.nlm.nih.gov/pubmed/17230434] or infectious disease [no link]) and DNA double-strand breaks (DSB) [add a link].
 
 We developed a system that facilitates the digital  enumeration of DSBs via the phosphorylated histone  variant H2AX ($\gamma H2AX$), which is an important  biodositometer during radiation treatment. $\gamma H2AX$ is an important biomarker of physiological and pathological cellular processes \cite{reddig_dna_2018,rodiger_quantification_2018}. In addition, associated biomarkers such as the p53-binding protein 1 (53BP1) may also be detected during the screening. The foci quantification is a fast and sensitive approach for detection of one of the critical types of DNA damage introduced by radiation, cellular process or toxic agent with applications in research and clinical environment (e.g., individual radiosensitivity). Although these biomarkers play a crucial role in diagnostics, their levels vary not only between patients but also between replicates.
 
-The Poisson model is typically used for count data. However, in the context of DSBs, real foci data often do not satisfy constraints implied by this distribution. This suggests that another probability distribution for positive integers may describe a data set more accurately. Therefore, an identification of the probability distribution of $\gamma H2AX$ foci and associated biomarkers is vital for the precise estimation of the mean number of foci per cell and its confidence intervals.
+The Poisson distribution is presumably most commonly used when dealing with count data \citep{morina_generalized_2015}. However, in the context of DSBs, real foci data often do not satisfy constraints implied by this distribution. This suggests that another probability distribution for positive integers may describe a data set more accurately. Therefore, an identification of the probability distribution of $\gamma H2AX$ foci and associated biomarkers is vital for the precise estimation of the mean number of foci per cell and its confidence intervals.
 
 
 \section{Overdispersion}
 
-Overdispersion is an important concept in the analysis of the data. It occurs when the variation is much higher than expected. Usually when this happens we try to fit our dataset to distribution model in order to get the sample mean as close as possible to population mean. Some distribution models have an attribute to fit variabilities of observations.
+Overdispersion is an important concept in the analysis of the data. It occurs when the variation is much higher than expected. Usually when this happens we try to fit our dataset to distribution model in order to get the sample mean as close as possible to population mean \citep{morina_generalized_2015}. Some distribution models have an attribute to fit variabilities of observations.
 
 % Overdispersion may be caused by the increased variability of counts, for example when a counting algorithm under- and overcounts. In such situation the data might have the NB distribution. The other cause of overdispersion is called zero-inflation and occurs in datasets, where some factor introduced faulty zeros. That means that some counts, regardless of their real state, are treated as zeros. In this case, data has the ZIP distribution. If both faulty zeros and increased variance affect the data, the ZINB distribution is the most appropriate.\\
 % Count data is commonly assumed to be Poisson-distributed. One of the important features of the Poisson distribution is the equality of variance and expected value. But often we encounter overdispersed datasets, when the variance is bigger than the mean, and the commonly used model does not have attribute to fit variabilities of observations as close as possible to population mean.\\
@@ -136,7 +136,7 @@ For more convenient access to the package’s capabilities, a graphical user int
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.99\columnwidth]{fig_gui}
-  \caption{\emph{countfitteR\_gui()} function running in the \emph{RKWard} GUI/IDE \citep{rodiger_rkward:_2012}.}
+  \caption{\emph{countfitteR\_gui()} function running in the \emph{RKWard} GUI/IDE (v. 0.7.0z+0.7.1+devel1) on Kubuntu 18.04. \citep{rodiger_rkward:_2012}.}
   \label{figure:fig_gui.png}
 \end{figure}
 
@@ -152,7 +152,7 @@ Other tabs are \textit{Save report}, where all the results, obtained from functi
 
 All plots can be saved in svg files and tables in csv.
 
-The graphical user interface  (GUI) was created using  the shiny package \citep{shiny}. This allows \emph{countfitteR} to run as a web server, which can be used on a web browser on any pc. The software relies on several packages including ggplot2 \citep{ggplot2}, MASS \citep{MASS}, stats \citep{Rrr}, shinythemes \citep{shinythemes}, rhandsontable \citep{rhandsontable}, pscl \citep{pscl}, DT \citep{DT}, rmarkdown \citep{rmarkdown}, reshape2 \citep{reshape2}, grid \citep{Rrr}, gridExtra \citep{gridextra}, dplyr  \citep{dplyr}.
+The graphical user interface  (GUI) was created using  the shiny package \citep{shiny}. This allows \emph{countfitteR} to run as a web server, which can be used on a web browser on any personal computer. The software relies on several packages including \emph{ggplot2} \citep{ggplot2}, \emph{MASS} \citep{MASS}, \emph{stats} \citep{Rrr}, \emph{shinythemes} \citep{shinythemes}, \emph{rhandsontable} \citep{rhandsontable}, \emph{pscl} \citep{pscl}, \emph{DT} \citep{DT}, \emph{rmarkdown} \citep{rmarkdown}, \emph{reshape2} \citep{reshape2}, \emph{grid} \citep{Rrr}, \emph{gridExtra} \citep{gridextra} and \emph{dplyr}  \citep{dplyr}.
 
 \begin{figure}[htbp]
   \centering
@@ -314,8 +314,8 @@ binomial_zinb binomial 0.6400021 0.3920851 1.0446781 55.93792 191379.213 3.23108
 
 \section{3. Results and conclusion.}
 
-One of the most important features of \emph{countfitteR} and its shiny GUI is deciding which distribution is optimal for the dataset. It is also easy to use by people that doesnt have any experiance with using command line and bioinformatics. 
-Currently you can find distribution analysis software like ShrinkBayes \citep{shrinkbayes}, COUNT \citep{hilbe_modeling_2014, hilbe_negative_2011-1}, pscl \citep{pscl}, countreg [strange citation] and CountsEPPM \citep{countseppm} that analyses distributions of count datasets but none of them have user friendly interface. All of the listed packages must be run from the command line. Moreover, unlike \emph{countfitteR}, they do not have functions that compare distributions and decides the most optimal one.
+One of the most important features of \emph{countfitteR} and its shiny GUI is deciding which distribution is optimal for the dataset. It is also easy to use by people that does not have any experience with using command line and bioinformatics. 
+Currently you can find distribution analysis software like \emph{ShrinkBayes} \citep{shrinkbayes}, \emph{COUNT} \citep{hilbe_modeling_2014, hilbe_negative_2011-1}, \emph{pscl} \citep{pscl}, \emph{countreg} [strange citation] and CountsEPPM \citep{countseppm} that analyses distributions of count datasets but none of them have user friendly interface. All of the listed packages must be run from the command line. Moreover, unlike \emph{countfitteR}, they do not have functions that compare distributions and decides the most optimal one.
 
 
 % The command line is a user interface. Some find the cmd line even more convenient than the GUI. That is not a good argument.
