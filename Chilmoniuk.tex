@@ -134,7 +134,9 @@ The data were prepared as described in \citep{rodiger_quantification_2018}. The 
 
 Our application is available as a web server that may be used in an analysis of any kind count data, not only $\gamma H2AX$ and 53BP1. It is accompanied by an in-depth manual depicting the implemented framework and a rationale behind it. The guide covers both theoretical fundamentals and usage of \emph{countfitteR}, from a data import to a report generation.
 
-For more convenient access to the package’s capabilities, a graphical user interface (GUI) can be used by typing the \emph{countfitteR\_gui()} into the R console. A new window opens (Figure \ref{fig_gui}). 
+In case the server is down or access to the Internet is restricted, 
+%For more convenient 
+access to the package’s capabilities, a graphical user interface (GUI) can be used by typing the \emph{countfitteR\_gui()} into the R console. A new window opens (Figure \ref{fig_gui}). 
 
 \begin{figure}[htbp]
   \centering
@@ -156,21 +158,21 @@ In \textit{Count data} tab there are 3 submenus. \textit{Edit input data}, where
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.99\columnwidth]{fig/cf_cd1.png}
-  \caption{Edit input data.}
+  \caption{In this section uploaded data can be previewed and modified.}
     \label{cf_cd1}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.99\columnwidth]{fig/cf_cd2.png}
-  \caption{Summary statistics.}
+  \caption{Table shows summary statistics calculated for each count.}
     \label{cf_cd2}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.99\columnwidth]{fig/cf_cd3.png}
-  \caption{Distribution of counts and Contingency table of counts}
+  \caption{Distribution of counts can be viewed in form of a plot or table.}
     \label{cf_cd3}
 \end{figure}
 
@@ -179,21 +181,21 @@ Another tab is \textit{Fitted models}. In \textit{Mean value estimate} submenu t
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.99\columnwidth]{fig/cf_fm1.png}
-  \caption{Mean value estimate and its confidence and Summary of estimates.}
+  \caption{Plot and a table shows estimated mean value and its confidence.}
     \label{cf_fm1}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.99\columnwidth]{fig/cf_fm2.png}
-  \caption{Coefficients.}
+  \caption{Estimated coefficients values of distribution models.}
     \label{cf_fm2}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.99\columnwidth]{fig/cf_fm3.png}
-  \caption{Decision.}
+  \caption{\emph{countfitteR} decides on the most optimal distribution model.}
     \label{cf_fm3}
 \end{figure}
 
@@ -202,11 +204,13 @@ In \textit{Compare distributions} tab plots with compared empirical distribution
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.99\columnwidth]{fig/cf_cmp.png}
-  \caption{Compare distribution.}
+  \caption{Comparison of empirical distribution of counts with distribution models.}
     \label{cf_cmp}
 \end{figure}
 
-Other tabs are \textit{Save report}, where all the results, obtained from functions described above, can be saved in one file (Figure \ref{cj_rep}). In \textit{Settings} by default all 4 distribution models are selected for the analyses, the confidence level can be changed and the \textit{Separate experiment} if marked it assumes that all counts may come from different distributions (Figure \ref{cj_set}). In \textit{About} tab authors and link to repository of \emph{countfitteR} can be found and in \textit{Help} there are general tips for each tab. 
+Other tabs are \textit{Save report}, where all the results, obtained from functions described above, can be saved in one file. All reports are properly created only by opening shiny gui in web browser (Figure \ref{cj_rep}). In \textit{Settings} by default all 4 distribution models are selected for the analyses, the confidence level can be changed and the \textit{Separate experiment} if marked it assumes that all counts may come from different distributions (Figure \ref{cj_set}). In \textit{About} tab authors and link to repository of \emph{countfitteR} can be found and in \textit{Help} there are general tips for each tab. 
+
+>>>>>[new file with md5sum]<<<<<
 
 \begin{figure}[htbp]
   \centering
@@ -315,7 +319,7 @@ $binomialpois$model
 {\bfseries
 \begin{example}
 > df <- data.frame(poisson = rpois(25, 0.3), binomial = rbinom(25, 1, 0.8))
-> cmp <- compare_fit(df, fitlist = fit_counts(df, model = "all")) >>>>>[WARNINGS]<<<<<
+> cmp <- compare_fit(df, fitlist = fit_counts(df, model = "all"))
 > plot_fitcmp(cmp)
 \end{example}
 }
@@ -331,7 +335,7 @@ $binomialpois$model
 {\bfseries
 \begin{example}
 > df <- data.frame(poisson = rpois(25, 0.3), binomial = rbinom(25, 1, 0.8))
-> fc <- fit_counts(df, model = "all") >>>>>[WARNINGS]<<<<<
+> fc <- fit_counts(df, model = "all")
 > summary_fitlist(fc) 
 \end{example}
 }
@@ -380,23 +384,22 @@ binomial_zinb binomial 0.6400021 0.3920851 1.0446781 55.93792 191379.213 3.23108
 
 \section{3. Results and conclusion.}
 
-One of the most important characteristics of \emph{countfitteR} and its shiny GUI is deciding which distribution is optimal for the dataset. It is easy to use by people who do not have experience with using command line, statistics and bioinformatics. 
-Currently one can find distribution analysis software like \emph{ShrinkBayes} \citep{shrinkbayes}, \emph{COUNT} \citep{COUNT}, \emph{pscl} \citep{pscl}, \emph{countreg} \citep{countreg} and \emph{CountsEPPM} \citep{countseppm} that analyses distributions of count datasets but none of them have user friendly interface. All of the listed packages must be run from the command line. Moreover, unlike \emph{countfitteR}, they do not have functions that compare distributions and decides the most optimal one.
+One of the most important characteristics of \emph{countfitteR} and its shiny GUI is deciding which distribution is optimal for the dataset. The shiny web server is easy to use by people who do not have experience with using command line, statistics and bioinformatics. 
+Currently one can find distribution analysis software like \emph{ShrinkBayes} \citep{shrinkbayes}, \emph{COUNT} \citep{COUNT}, \emph{pscl} \citep{pscl}, \emph{countreg} \citep{countreg} and \emph{CountsEPPM} \citep{countseppm} that analyses distributions of count datasets but none of them have user friendly interface. All of the listed packages must be run from the command line. 
+Listed software is limited. It focuses on a specific kind of data (e.g. sequencing) or uses only one distribution model (e.g. either Poisson or binomial). In contrary to \emph{countfitteR} that simultaneously looks at four different distribution models to asses the most optimal one and is not restricted to only one type of data. 
+%Moreover, unlike \emph{countfitteR}, they do not have functions that compare distributions and decides the most optimal one.
 
-For reproducible research, the availability of algorithmic tools for accessing and analyzing open data collections is of great benefit \cite{lahti_retrieval_2017}. Since \emph{countfitteR} is based on R it is good for reproducible research [...add more text here ...] \citep{leeper_archiving_2014,thioulouse_online_2010,rodiger_r_2015,liu_r_2014,Biecek_2017}
+For reproducible research, the availability of algorithmic tools for accessing and analyzing open data collections is of great benefit \cite{lahti_retrieval_2017}. Reproducible means that a detailed description of research workflow allows other users to replicate published results precisely \citep{leeper_archiving_2014}. 
+
+Since \emph{countfitteR} is based on R it is good for reproducible research. 
+
+Reproducible research in \emph{countfitteR} is achieved through generating report file using shiny gui. At the beginning of the report you can find the date when it was generated, below is the name of detected uploaded file and its md5sum. At the very end of document there is an information about used environment. This includes R version, platform, operating system and its version, list of all packages and attached ones.
 
 
-% The command line is a user interface. Some find the cmd line even more convenient than the GUI. That is not a good argument.
-% ShrinkBayes and others either focus on a specific data set (e.g. sequencing data) or look at a single model (e.g. either Poisson or binomial. ...).
-% We have a package that simultaneously looks at different models, that asses the optimal and that has a GUI.
 
-% \section{show other count-based packages}
 
-% ShrinkBayes: a versatile R-package for analysis of count-based sequencing data in complex study designs.\\
-% COUNT \\
-% pscl \\
-% countreg: Count Data Regression \\
-% CountsEPPM 
+\citep{leeper_archiving_2014,thioulouse_online_2010,rodiger_r_2015,liu_r_2014,Biecek_2017}
+
 
 \section{Summary}
 
