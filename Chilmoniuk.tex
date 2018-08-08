@@ -124,12 +124,40 @@ The web server is accessible under:
 % #############################################################################3 add web server url
 
 \section{Data sets}
-In the present study we used count data from an image based study of $\gamma H2AX$ foci. Analysis of such foci data is a common task both in life sciences and in diagnostics applications. \emph{countfitteR} was initially developed for modeling count data from the AKLIDES system, but it may be used for foci data from other systems.
+In the present study we used count data from an image based study of $\gamma H2AX$ foci. The data was generated from human peripheral blood mononuclear cells (PBMCs) which were treated with the topoisomerase inhibitor etoposide to induce $\gamma H2AX$ foci. Analysis of such foci data is a common task both in life sciences and in diagnostics applications. \emph{countfitteR} was initially developed for modeling count data from the AKLIDES system, but it may be used for foci data from other systems.
 The data were prepared as described in \citep{rodiger_quantification_2018}. The Comprehensive R Archive Network (CRAN), which archives R packages, has a recommended size limit of five megabytes (MB) \citep{anderson_hosting_2017}. Therefore, the following data sets are include only.
 
-\begin{itemize}
- \item ADD EXAMPLE DATA SET with brief decription
-\end{itemize}
+\newpage
+
+{\bfseries
+\begin{example}
+>foci_count[1:15, 1:5]
+\end{example}
+}
+
+\scriptsize{
+\begin{example}
+   L3_AF_DMSO_B_10_FITC L3_AF_DMSO_B_10_APC L3_AF_100_ETP_11_FITC L3_AF_100_ETP_11_APC L3_AF_100_ETP_12_FITC
+1                     0                   0                     0                    0                     0
+2                     0                   0                     0                    1                    19
+3                     0                   0                     0                    0                     0
+4                     0                   0                     1                    0                    12
+5                     0                   0                     0                    0                     4
+6                     0                   0                    13                    0                     1
+7                     0                   0                     0                    0                     0
+8                     0                   0                     0                    0                     3
+9                     0                   0                     0                    0                     8
+10                    0                   0                    12                    0                     0
+11                    0                   0                     5                    0                     0
+12                    0                   0                    21                    0                     0
+13                    0                   0                     0                    0                     0
+14                    0                   0                     0                    0                     0
+15                    0                   0                     0                    0                    11
+\end{example}
+}
+
+The data of human PBMCs was already published elsewhere as this data was used to show that freezing of PBMCs did not influence the amount of $\gamma H2AX$ foci formation. However, the results of this experiment where statistically analysed using GraphPad Prism.
+% When the publication is out, we can add it to this paper otherwise we have to say that the data will be published.
 
 
 \section{Shiny GUI} %Graphical User Interface
@@ -144,7 +172,7 @@ In case the web server is down or access to the Internet is restricted, access t
   \caption{\emph{countfitteR\_gui()} function running in the \emph{RKWard} GUI/IDE (v. 0.7.0z+0.7.1+devel1) on Kubuntu 18.04. \citep{rodiger_rkward:_2012}.}
   \label{fig_gui}
 \end{figure}
-In \textit{Data upload} tab the csv file with count data can be uploaded (Figure \ref{cf_main}). One of two types of csv separators can be selected, if the data file does not have a header the box should be unchecked. If no file will be uploaded, example file will be loaded.
+In \textit{Data upload} tab the csv file with count data can be uploaded (Figure \ref{cf_main}). But before that one of csv separators types must be selected to properly load file. If the data file does not have a header the box should be unchecked. If no file will be uploaded, example file will be loaded.
 
 \begin{figure}[htbp]
   \centering
@@ -393,7 +421,7 @@ All this steps are necessary for other researchers to reproduce the results and 
 %as the scientific misconduct and fraud have shaken the scientific community on several occasions \citep{rodiger_r_2015}.
 There are some packages like \emph{rctrack} \citep{liu_r_2014} and \emph{archivist} \citep{Biecek_2017} that automatically archive data files, code files, and other details. They are also creating new ways to retrieve and validate previously calculated R objects. 
 
-Since \emph{countfitteR} is based on R it is good for reproducible research. This is achieved through generating \emph{rmarkdown} \citep{rmarkdown} report file using the shiny gui. The report contains the date of generation, name of uploaded file, it's md5 hash value and information describing working environment. This includes R version, platform, operating system and its version, list of all packages and attached ones.
+Since \emph{countfitteR} is based on R, it is good for reproducible research. This is achieved through generating \emph{rmarkdown} \citep{rmarkdown} report file using the shiny gui. The report contains the date of generation, name of uploaded file, it's md5 hash value and information describing working environment. This includes R version, platform, operating system and its version, list of all packages and attached ones.
 
 %At the beginning of the report there is the date of generation, below is the name of detected uploaded file and its md5sum. At the very end of document there is an information about used environment. This includes R version, platform, operating system and its version, list of all packages and attached ones.
 
